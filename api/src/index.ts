@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 async function main(){
     try {
         await mongoose.connect(
-            "mongodb://localhost:27017/CONCE"
+            "mongodb://localhost:27017/AYVOY"
         );
         console.log('BD corriendo con exito');
         app.listen(4010, ()=>{

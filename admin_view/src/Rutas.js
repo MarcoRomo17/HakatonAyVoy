@@ -1,13 +1,20 @@
-import { Container, Nav, Card } from "react-bootstrap";
+import { Container, Nav, Card, Navbar } from "react-bootstrap";
 
 export const Rutas = () => {
   return (
     <Container fluid style={{ backgroundColor: "#252569", minHeight: "100vh", padding: "20px" }}>
 
-      <Nav className="bg-body-tertiary mb-3 p-2 rounded">
-        <Nav.Link href="/Admin" style={{ color: "#252569", fontWeight: "bold" }}>Choferes</Nav.Link>
-        <Nav.Link href="/Rutas" style={{ color: "#252569", fontWeight: "bold" }}>Rutas</Nav.Link>
-      </Nav>
+<Navbar expand="lg" className="mb-4 p-3 rounded shadow-lg" style={{ backgroundColor: "#fff" }}>
+        <Navbar.Brand href="#" style={{ fontWeight: "bold", color: "#252569" }}>
+          Panel de Administración
+        </Navbar.Brand>
+        <Nav className="ms-auto">
+          <Nav.Link href="/Admin" style={{ color: "#ca2193", fontWeight: "bold" }}>Choferes</Nav.Link>
+          <Nav.Link href="/Rutas" style={{ color: "#252569", fontWeight: "bold" }}>Rutas</Nav.Link>
+          <Nav.Link href="/Autorizacion" style={{ color: "#252569", fontWeight: "bold" }}>Autorizacion de canjeos</Nav.Link>
+          <Nav.Link href="/Historial" style={{ color: "#252569", fontWeight: "bold" }}>Historial de canjeos</Nav.Link>
+        </Nav>
+      </Navbar>
 
       <Card className="mb-4 shadow-lg p-3 text-white" style={{ backgroundColor: "#ca2193 ", borderRadius: "10px" }}>
         <Card.Text style={{ fontSize: "1.2rem", fontWeight: "bold" }}>

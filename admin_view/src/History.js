@@ -1,17 +1,18 @@
 import { Card, Container, Nav, Table, Navbar } from "react-bootstrap";
 
 
-export const Admin = () => {
+export const History = () => {
   const choferes = [
-    { id: 1, nombre: "Juan", apellido: "Pérez", puntos: 150 },
-    { id: 2, nombre: "Ana", apellido: "Gómez", puntos: 200 },
-    { id: 3, nombre: "Carlos", apellido: "López", puntos: 175 },
-    { id: 4, nombre: "Laura", apellido: "Martínez", puntos: 220 },
+    { id: 1, nombre: "Juan", apellido: "Pérez", recompensa: "Dia libre", fecha:"17/02/25" },
+    { id: 2, nombre: "Ana", apellido: "Gómez", recompensa: "Electrodomestico", fecha:"14/01/25" },
+    { id: 3, nombre: "Carlos", apellido: "López", recompensa: "Dia libre", fecha:"21/04/25"},
+    { id: 4, nombre: "Laura", apellido: "Martínez", recompensa: "Bono economico", fecha:"29/11/24" },
   ];
 //De momento solo hice un arreglo pero vamos a usar los datos de la bd
   return (
     <Container fluid style={{ backgroundColor: "#252569", minHeight: "100vh", padding: "20px" }}>
       
+      {/* Navbar Mejorado */}
       <Navbar expand="lg" className="mb-4 p-3 rounded shadow-lg" style={{ backgroundColor: "#fff" }}>
         <Navbar.Brand href="#" style={{ fontWeight: "bold", color: "#252569" }}>
           Panel de Administración
@@ -33,7 +34,7 @@ export const Admin = () => {
 
       {/* Tabla de los choferes */}
       <Container fluid className="p-4 rounded shadow-lg" style={{ backgroundColor: "#1a1a40" }}>
-        <h3 className="text-center text-white mb-4">Listado de Choferes</h3>
+        <h3 className="text-center text-white mb-4">Historial de canjeos</h3>
 
         <Table striped bordered hover responsive className="text-white" style={{ backgroundColor: "#0b1d5f" }}>
           <thead>
@@ -41,7 +42,8 @@ export const Admin = () => {
               <th>ID</th>
               <th>Nombre</th>
               <th>Apellido</th>
-              <th>Puntos</th>
+              <th>Recompensa canjeada</th>
+              <th>Fecha de canjeo</th>
             </tr>
           </thead>
           <tbody>
@@ -50,7 +52,8 @@ export const Admin = () => {
                 <td style={{ fontWeight: "bold", color: "#ffc107" }}>{chofer.id}</td>
                 <td>{chofer.nombre}</td>
                 <td>{chofer.apellido}</td>
-                <td>{chofer.puntos}</td>
+                <td>{chofer.recompensa}</td>
+                <td>{chofer.fecha}</td>
               </tr>
             ))}
           </tbody>

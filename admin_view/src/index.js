@@ -10,10 +10,12 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Admin } from './Admin';
 import { Rutas } from './Rutas';
+import { History } from './History';
+import { Autorization } from './Autorization';
 
 const router = createBrowserRouter([
   {
-    path: "/home",
+    path: "/",
     element: <App />,
   },
   {
@@ -23,6 +25,14 @@ const router = createBrowserRouter([
   {
     path: "/Rutas",
     element: <Rutas />
+  },
+  {
+    path: "/Historial",
+    element: <History />
+  },
+  {
+    path: "/Autorizacion",
+    element: <Autorization />
   }
 ]);
 

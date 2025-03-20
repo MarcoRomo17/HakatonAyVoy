@@ -1,4 +1,4 @@
-import { Card, Container, Nav, Table, Navbar } from "react-bootstrap";
+import { Card, Container, Nav, Table, Navbar, Button } from "react-bootstrap";
 
 
 export const Autorization = () => {
@@ -18,10 +18,11 @@ export const Autorization = () => {
           Panel de Administración
         </Navbar.Brand>
         <Nav className="ms-auto">
-          <Nav.Link href="/Admin" style={{ color: "#ca2193", fontWeight: "bold" }}>Choferes</Nav.Link>
+          <Nav.Link href="/Admin" style={{ color: "#252569", fontWeight: "bold" }}>Choferes</Nav.Link>
           <Nav.Link href="/Rutas" style={{ color: "#252569", fontWeight: "bold" }}>Rutas</Nav.Link>
-          <Nav.Link href="/Autorizacion" style={{ color: "#252569", fontWeight: "bold" }}>Autorizacion de canjeos</Nav.Link>
+          <Nav.Link href="/Autorizacion" style={{ color: "#ca2193", fontWeight: "bold" }}>Autorizacion de canjeos</Nav.Link>
           <Nav.Link href="/Historial" style={{ color: "#252569", fontWeight: "bold" }}>Historial de canjeos</Nav.Link>
+          <Nav.Link href="/Registrar" style={{ color: "#252569", fontWeight: "bold" }}>Crear cuenta de chofer</Nav.Link>
         </Nav>
       </Navbar>
 
@@ -43,7 +44,7 @@ export const Autorization = () => {
               <th>Nombre</th>
               <th>Apellido</th>
               <th>Recompensa canjeada</th>
-              <th>Fecha de canjeo</th>
+              <th>Estado de autorizacion</th>
             </tr>
           </thead>
           <tbody>
@@ -53,7 +54,7 @@ export const Autorization = () => {
                 <td>{chofer.nombre}</td>
                 <td>{chofer.apellido}</td>
                 <td>{chofer.recompensa}</td>
-                <td>{chofer.fecha}</td>
+                <td><Button variant="success" className="me-3">Autorizar</Button><Button variant="danger">Denegar</Button></td>
               </tr>
             ))}
           </tbody>

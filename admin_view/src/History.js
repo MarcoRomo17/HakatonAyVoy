@@ -3,10 +3,10 @@ import { Card, Container, Nav, Table, Navbar } from "react-bootstrap";
 
 export const History = () => {
   const choferes = [
-    { id: 1, nombre: "Juan", apellido: "Pérez", recompensa: "Dia libre", fecha:"17/02/25" },
-    { id: 2, nombre: "Ana", apellido: "Gómez", recompensa: "Electrodomestico", fecha:"14/01/25" },
-    { id: 3, nombre: "Carlos", apellido: "López", recompensa: "Dia libre", fecha:"21/04/25"},
-    { id: 4, nombre: "Laura", apellido: "Martínez", recompensa: "Bono economico", fecha:"29/11/24" },
+    { id: 1, nombre: "Juan", apellido: "Pérez", recompensa: "Dia libre", fecha:"17/02/25", estado:"Denegado" },
+    { id: 2, nombre: "Ana", apellido: "Gómez", recompensa: "Electrodomestico", fecha:"14/01/25", estado:"Autorizado" },
+    { id: 3, nombre: "Carlos", apellido: "López", recompensa: "Dia libre", fecha:"21/04/25", estado:"Autorizado"},
+    { id: 4, nombre: "Laura", apellido: "Martínez", recompensa: "Bono economico", fecha:"29/11/24" , estado:"Denegado"},
   ];
 //De momento solo hice un arreglo pero vamos a usar los datos de la bd
   return (
@@ -18,10 +18,11 @@ export const History = () => {
           Panel de Administración
         </Navbar.Brand>
         <Nav className="ms-auto">
-          <Nav.Link href="/Admin" style={{ color: "#ca2193", fontWeight: "bold" }}>Choferes</Nav.Link>
+          <Nav.Link href="/Admin" style={{ color: "#252569", fontWeight: "bold" }}>Choferes</Nav.Link>
           <Nav.Link href="/Rutas" style={{ color: "#252569", fontWeight: "bold" }}>Rutas</Nav.Link>
           <Nav.Link href="/Autorizacion" style={{ color: "#252569", fontWeight: "bold" }}>Autorizacion de canjeos</Nav.Link>
-          <Nav.Link href="/Historial" style={{ color: "#252569", fontWeight: "bold" }}>Historial de canjeos</Nav.Link>
+          <Nav.Link href="/Historial" style={{ color: "#ca2193", fontWeight: "bold" }}>Historial de canjeos</Nav.Link>
+          <Nav.Link href="/Registrar" style={{ color: "#252569", fontWeight: "bold" }}>Crear cuenta de chofer</Nav.Link>
         </Nav>
       </Navbar>
 
@@ -44,6 +45,7 @@ export const History = () => {
               <th>Apellido</th>
               <th>Recompensa canjeada</th>
               <th>Fecha de canjeo</th>
+              <th>Respuesta</th>
             </tr>
           </thead>
           <tbody>
@@ -54,6 +56,7 @@ export const History = () => {
                 <td>{chofer.apellido}</td>
                 <td>{chofer.recompensa}</td>
                 <td>{chofer.fecha}</td>
+                <td>{chofer.estado}</td>
               </tr>
             ))}
           </tbody>

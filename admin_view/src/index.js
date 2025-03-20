@@ -12,6 +12,7 @@ import { Admin } from './Admin';
 import { Rutas } from './Rutas';
 import { History } from './History';
 import { Autorization } from './Autorization';
+import { Register } from './RegisterDriver';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/Autorizacion",
     element: <Autorization />
+  },
+  {
+    path: "/Registrar",
+    element: <Register />
   }
 ]);
 

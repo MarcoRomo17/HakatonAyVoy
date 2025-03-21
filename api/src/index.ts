@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 async function main(){
     try {
         await mongoose.connect(
-            "mongodb://localhost:27017/AYVOY"
+            "mongodb+srv://marco200577:mazinger17Dante@ayvoy.011v3.mongodb.net/AYVOY"
         );
         console.log('BD corriendo con exito');
         app.listen(4010, ()=>{

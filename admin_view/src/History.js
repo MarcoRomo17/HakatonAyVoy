@@ -7,6 +7,12 @@ export const History = () => {
     { id: 2, nombre: "Ana", apellido: "Gómez", recompensa: "Electrodomestico", fecha:"14/01/25", estado:"Autorizado" },
     { id: 3, nombre: "Carlos", apellido: "López", recompensa: "Dia libre", fecha:"21/04/25", estado:"Autorizado"},
     { id: 4, nombre: "Laura", apellido: "Martínez", recompensa: "Bono economico", fecha:"29/11/24" , estado:"Denegado"},
+    { id: 4, nombre: "Laura", apellido: "Martínez", recompensa: "Bono economico", fecha:"29/11/24" , estado:"Denegado"},
+    { id: 4, nombre: "Laura", apellido: "Martínez", recompensa: "Bono economico", fecha:"29/11/24" , estado:"Denegado"},
+    { id: 4, nombre: "Laura", apellido: "Martínez", recompensa: "Bono economico", fecha:"29/11/24" , estado:"Denegado"},
+    { id: 4, nombre: "Laura", apellido: "Martínez", recompensa: "Bono economico", fecha:"29/11/24" , estado:"Denegado"},
+    { id: 4, nombre: "Laura", apellido: "Martínez", recompensa: "Bono economico", fecha:"29/11/24" , estado:"Denegado"},
+    { id: 4, nombre: "Laura", apellido: "Martínez", recompensa: "Bono economico", fecha:"29/11/24" , estado:"Denegado"},
   ];
 //De momento solo hice un arreglo pero vamos a usar los datos de la bd
   return (

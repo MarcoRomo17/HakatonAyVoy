@@ -10,8 +10,8 @@ function App() {
     <>
     <Container fluid style={{backgroundColor:'#252569'}}>
       <center>
-      <Card style={{ width: '30rem', height:'35rem', margin:'0'}}>
-        <Card.Body style={{ backgroundColor: "#252569", borderRadius:'15px', padding:"50px"}} >
+      <Card style={{ width: '30rem', height:'35rem', borderRadius:"15px"}}>
+        <Card.Body style={{ backgroundColor: "#252569", borderRadius:'15px', padding:"50px", border:"5px solid #ca2193"}} >
         <Image src={AYVOYlogo} style={{width:"8rem", height:'8rem' }}/>
           <Card.Text style={{color:'#0dc8e2'}}>
           <IoBus/>

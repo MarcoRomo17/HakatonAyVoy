@@ -7,8 +7,7 @@ import AYVOYlogo from './images/AYVOYlogo.png';
 
 export const Register = ()=>{
   return (
-    <>
-    <Container fluid className='vh-100' style={{backgroundColor:'#252569'}}>
+    <Container fluid style={{ backgroundColor: "#252569", minHeight: "100vh", padding: "20px" }}>
     <Navbar expand="lg" className="mb-4 p-3 rounded shadow-lg" style={{ backgroundColor: "#fff" }}>
         <Navbar.Brand href="#" style={{ fontWeight: "bold", color: "#252569" }}>
           Panel de Administración
@@ -28,8 +27,8 @@ export const Register = ()=>{
         </Card.Text>
       </Card>
       <center>
-      <Card style={{ width: '30rem', height:'35rem', margin:'0'}}>
-        <Card.Body style={{ backgroundColor: "#252569", borderRadius:'15px', padding:"15px"}} >
+      <Card style={{ width: '30rem', height:'35rem', margin:'0', borderRadius:"15px" }}>
+        <Card.Body style={{ backgroundColor: "#252569", borderRadius:'15px', padding:"15px", border:"5px solid #ca2193"}} >
         <Image src={AYVOYlogo} style={{width:"8rem", height:'8rem' }}/>
           <Card.Text style={{color:'#0dc8e2'}}>
           <TbUsersPlus/>
@@ -83,6 +82,6 @@ export const Register = ()=>{
       </Card>
       </center>
     </Container>
-    </>
+ 
   );
 }

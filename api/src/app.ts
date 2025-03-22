@@ -2,8 +2,9 @@ import  { Application, Response, Request } from "express";
 import cors from "cors";
 import express from "express"
 import { borrarRuta, registrarRuta, traerRuta, traerTodasRutas } from "./controllers/rutaController";
-import { borrarConductor, puntos, registrarConductor, traerTodosCondutores, traerUnConductor } from "./controllers/conductorController";
+import { borrarConductor, cambiarRuta, editarConductor, puntos, registrarConductor, traerTodosCondutores, traerUnConductor } from "./controllers/conductorController";
 import { mostarMensajesPorRuta, registrarMensaje } from "./controllers/mensajeController";
+import { registrarSolicitud } from "./controllers/solicitudController";
 
 
 
@@ -33,13 +34,15 @@ app.get("/conductor/getOne", traerUnConductor)
 app.get("/conductor/getAll", traerTodosCondutores)
 app.delete("/conductor/delete", borrarConductor)
 
-app.put("/conductor/puntos", puntos)
-
+app.put ("/conductor/puntos", puntos)
+app.put("/conductor/update", editarConductor)
+app.put("/conductor/ruta", cambiarRuta)
 
 //MENSAJES
 app.post("/msg/create",registrarMensaje)
 app.get("/msg/getMsg",mostarMensajesPorRuta)
 
-
+//Solicitud
+app.post("/solicitud/create", registrarSolicitud)
 
 export default app;

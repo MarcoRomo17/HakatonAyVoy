@@ -25,10 +25,16 @@ export interface IMensaje{
 }
 
 //Para solicitudes y recompensas
-export interface ISoliYRec{
+export interface ISoliHis{
     conductor: Schema.Types.ObjectId | string;
-    recompensa:string;
+    recompensa:Schema.Types.ObjectId | string;
     estado: boolean;
     fecha:Date | string;
+}
 
+//Las recompensas
+
+export interface IRecompensa{
+        concepto: String;
+        puntos: number;
 }

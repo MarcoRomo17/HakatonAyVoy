@@ -122,4 +122,72 @@ export const puntos= async (req:Request, res: Response): Promise<any>=>{
       }
 }
 
-//Falta editar y revisar lo de los puntos
+
+export const editarConductor= async (req:Request, res: Response): Promise<any>=>{
+    try {
+        
+        const {name,
+            ap,
+            am,
+            email,
+            password, 
+            conductorID}=req.body;
+ 
+        console.log("Hola soy el id del coductor", conductorID)
+       
+        
+        if(!name||
+            !ap||
+            !am||
+            !email||
+            !password||
+            !conductorID){
+            return res.status(400).json({
+                msg:" faltan datos para editar al conductor"
+            })                     //devolvemos un json
+        }
+
+        const filter={
+            _id: conductorID
+        }
+
+        const update={
+            name:name,
+            ap:ap,
+            am:am,
+            email:email,
+            password:password,
+        }
+  
+          const conductorActualizado = await conductorModel.findOneAndUpdate(
+            filter,
+             update, 
+             { new: true } )
+          return res.status(200).json({msg:"Todo bien, actualice", conductorActualizado})
+  
+      } catch (error) {
+        return res.status(500).json({msg:"Algo salio mal en el servidor"})
+      }
+}
+
+export const cambiarRuta= async (req:Request, res: Response): Promise<any>=>{
+    try {
+        
+        const  { conductorID, ruta} = req.body
+        console.log("Hola soy el id del coductor", conductorID)
+       
+        
+          if(!conductorID||!ruta){
+              return res.status(400).json({msg:"No se recibieron datos para marcarla completada", conductorID})
+          }
+  
+          const conductorActualizado = await conductorModel.findOneAndUpdate(
+            {_id:conductorID},
+             {ruta:ruta}, 
+             { new: true } )
+          return res.status(200).json({msg:"Todo bien, actualice", conductorActualizado})
+  
+      } catch (error) {
+        return res.status(500).json({msg:"Algo salio mal en el servidor"})
+      }
+}

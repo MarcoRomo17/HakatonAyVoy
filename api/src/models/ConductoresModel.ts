@@ -25,7 +25,7 @@ const conductoresEsquema= new Schema<IConductor>({
     ruta:{
         type : Schema.Types.ObjectId,
         ref:"RUTA",// hacia donde apunta
-        required:true
+        
     },
     puntos:{
         type : Number,

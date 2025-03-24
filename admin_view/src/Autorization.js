@@ -23,6 +23,8 @@ export const Autorization = () => {
           <Nav.Link href="/Autorizacion" style={{ color: "#ca2193", fontWeight: "bold" }}>Autorizacion de canjeos</Nav.Link>
           <Nav.Link href="/Historial" style={{ color: "#252569", fontWeight: "bold" }}>Historial de canjeos</Nav.Link>
           <Nav.Link href="/Registrar" style={{ color: "#252569", fontWeight: "bold" }}>Crear cuenta de chofer</Nav.Link>
+          <Nav.Link href="/RegistrarRuta" style={{ color: "#252569", fontWeight: "bold" }}>Craer nueva ruta</Nav.Link>
+
         </Nav>
       </Navbar>
 
@@ -42,7 +44,7 @@ export const Autorization = () => {
             <tr className="text-center" style={{ backgroundColor: "#ca2193", color: "#fff" }}>
               <th>ID</th>
               <th>Nombre</th>
-              <th>Apellido</th>
+              <th>Apellido/s</th>
               <th>Recompensa canjeada</th>
               <th>Estado de autorizacion</th>
             </tr>

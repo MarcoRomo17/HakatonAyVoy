@@ -107,6 +107,8 @@ const validar=()=>{
           <Nav.Link href="/Autorizacion" style={{ color: "#252569", fontWeight: "bold" }}>Autorizacion de canjeos</Nav.Link>
           <Nav.Link href="/Historial" style={{ color: "#252569", fontWeight: "bold" }}>Historial de canjeos</Nav.Link>
           <Nav.Link href="/Registrar" style={{ color: "#ca2193", fontWeight: "bold" }}>Crear cuenta de chofer</Nav.Link>
+          <Nav.Link href="/RegistrarRuta" style={{ color: "#252569", fontWeight: "bold" }}>Craer nueva ruta</Nav.Link>
+
         </Nav>
       </Navbar>
 
@@ -185,7 +187,7 @@ const validar=()=>{
             <Form.Group>
             <Form.Control
                 placeholder="Contraseña"
-                type="text"
+                type="password"
                 className='mb-3'
                 onChange={(e)=>setValue('password', e.target.value)}
                 isInvalid={!!ERRORES.password}
@@ -210,7 +212,7 @@ const validar=()=>{
 
 
 
-            <Button style={{backgroundColor:'#784fba '}} onClick={()=>submit()}>Crear Cuenta</Button>
+            <Button className='mt-3' style={{backgroundColor:'#784fba '}} onClick={()=>submit()}>Crear Cuenta</Button>
           </Form>
 
         </Card.Body>

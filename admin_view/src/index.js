@@ -13,6 +13,7 @@ import { Rutas } from './Rutas';
 import { History } from './History';
 import { Autorization } from './Autorization';
 import { Register } from './RegisterDriver';
+import { RegisterRoute } from './RegisterRoute';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/Registrar",
     element: <Register />
+  },
+  {
+    path: "/RegistrarRuta",
+    element: <RegisterRoute/>
   }
 ]);
 

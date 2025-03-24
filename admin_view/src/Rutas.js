@@ -14,12 +14,14 @@ export const Rutas = () => {
           <Nav.Link href="/Autorizacion" style={{ color: "#252569", fontWeight: "bold" }}>Autorizacion de canjeos</Nav.Link>
           <Nav.Link href="/Historial" style={{ color: "#252569", fontWeight: "bold" }}>Historial de canjeos</Nav.Link>
           <Nav.Link href="/Registrar" style={{ color: "#252569", fontWeight: "bold" }}>Crear cuenta de chofer</Nav.Link>
+          <Nav.Link href="/RegistrarRuta" style={{ color: "#252569", fontWeight: "bold" }}>Craer nueva ruta</Nav.Link>
+
         </Nav>
       </Navbar>
 
-      <Card className="mb-4 shadow-lg p-3 text-white" style={{ backgroundColor: "#ca2193 ", borderRadius: "10px" }}>
+      <Card className="mb-4 shadow-lg p-3 text-white text-center" style={{ backgroundColor: "#ca2193", borderRadius: "10px" }}>
         <Card.Text style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
-          Bienvenido, <span style={{ color: "#ffc107" }}>{/*Aqui va a ir el nombre del admin*/}</span>
+          Bienvenido, <span style={{ color: "#ffc107" }}>Admin</span>
         </Card.Text>
       </Card>
 

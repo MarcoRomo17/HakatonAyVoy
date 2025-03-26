@@ -14,6 +14,7 @@ import { History } from './History';
 import { Autorization } from './Autorization';
 import { Register } from './RegisterDriver';
 import { RegisterRoute } from './RegisterRoute';
+import { AdminPuntos } from './AdminPuntos';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
   {
     path: "/RegistrarRuta",
     element: <RegisterRoute/>
+  },
+  {
+    path: "/AdminPuntos",
+    element: <AdminPuntos/>
   }
 ]);
 

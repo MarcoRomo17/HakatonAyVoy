@@ -4,7 +4,9 @@ import express from "express"
 import { borrarRuta, registrarRuta, traerRuta, traerTodasRutas } from "./controllers/rutaController";
 import { borrarConductor, cambiarRuta, editarConductor, puntos, registrarConductor, traerTodosCondutores, traerUnConductor } from "./controllers/conductorController";
 import { mostarMensajesPorRuta, registrarMensaje } from "./controllers/mensajeController";
-import { registrarSolicitud } from "./controllers/solicitudController";
+import { borrarSolicitud, registrarSolicitud, traertodasLasSolicitudes } from "./controllers/solicitudController";
+import { borrarRecompensa, editarRecompensa, registrarRecompensa, traerRecompensasTodas, traerUnaRecompensa } from "./controllers/recompensaController";
+import { registrarHistorial, traerTodoHistorial } from "./controllers/historialController";
 
 
 
@@ -42,7 +44,23 @@ app.put("/conductor/ruta", cambiarRuta)
 app.post("/msg/create",registrarMensaje)
 app.get("/msg/getMsg",mostarMensajesPorRuta)
 
-//Solicitud
+//SOLICITUDES
 app.post("/solicitud/create", registrarSolicitud)
+app.get("/solicitud/getAll", traertodasLasSolicitudes)
+app.delete("/solicitud/delete", borrarSolicitud)
+
+//HISTORIALES
+app.post("/historial/register", registrarHistorial)
+app.get("/historial/getAll", traerTodoHistorial)
+
+
+
+//RECOMPENSAS
+app.post("/recompensas/create", registrarRecompensa)
+app.get("/recompensas/getOne", traerUnaRecompensa)
+app.get("/recompensas/getAll", traerRecompensasTodas)
+app.delete("/recompensas/delete", borrarRecompensa)
+app.put("/recompensas/update",  editarRecompensa)
+
 
 export default app;

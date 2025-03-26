@@ -83,6 +83,7 @@ export const traerTodosCondutores= async (req:Request, res: Response): Promise<a
 export const borrarConductor = async (req:Request, res: Response): Promise<any>=>{
     try {
         const {conductorID} = req.body
+        console.log(conductorID)
 
 
         if(!conductorID){

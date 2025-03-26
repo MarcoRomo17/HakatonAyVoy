@@ -32,6 +32,7 @@ export interface ISoliHis{
     fecha:Date | string;
 }
 
+
 //Las recompensas
 
 export interface IRecompensa{

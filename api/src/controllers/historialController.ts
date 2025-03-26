@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { historialModel } from "../models/SolicitudModel";
 
-export const registrarSolicitud= async (req:Request, res: Response): Promise<any>=>{
+export const registrarHistorial= async (req:Request, res: Response): Promise<any>=>{
     try {
         const {conductor,
             recompensa,

@@ -54,10 +54,11 @@ export const traerUnaRecompensa= async (req:Request, res: Response): Promise<any
 export const traerRecompensasTodas= async (req:Request, res: Response): Promise<any>=>{
     try {
      
-          const todasLasRecompensas = await recompensaModel.find().populate("ruta")
+          const todasLasRecompensas = await recompensaModel.find()
           return res.status(200).json({msg:"Todo bien, encontre", todasLasRecompensas})
   
       } catch (error) {
+        console.log(error)
         return res.status(500).json({msg:"Algo salio mal en el servidor"})
       }
 }

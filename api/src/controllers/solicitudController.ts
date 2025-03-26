@@ -56,7 +56,7 @@ export const borrarSolicitud = async (req:Request, res: Response): Promise<any>=
             return res.status(400).json({msg:"No se recibieron datos", solicitudID})
         }
 
-        const conductorEliminado = await solicitudModel.deleteOne({_id:solicitudID})
+        const solicitudEliminada = await solicitudModel.deleteOne({_id:solicitudID})
         console.log("Se supoe elimine la del id", solicitudID)
         return res.status(200).json({msg:"Todo bien, ya la elimine"})
 

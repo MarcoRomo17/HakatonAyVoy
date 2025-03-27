@@ -7,6 +7,7 @@ import Chat from "../Screens/Chat";
 import Schedule from "../Screens/Schedule";
 import MapRoutes from "../Screens/MapRoutes";
 import Profile from "../Screens/Profile";
+import Support from "../Screens/Support";
 
 const { createDrawerNavigator } = require("@react-navigation/drawer");
 
@@ -110,7 +111,7 @@ export const DrawerNavigator = () => {
 
             <Drawer.Screen
                 name="Support"
-                component={Chat}
+                component={Support}
                 options={{
                     drawerLabel: "Soporte Técnico",
                     headerShown: false,

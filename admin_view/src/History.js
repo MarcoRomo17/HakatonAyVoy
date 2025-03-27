@@ -47,6 +47,7 @@ const obtenerHistorial= async()=>{
           <Nav.Link href="/Historial" style={{ color: "#ca2193", fontWeight: "bold" }}>Historial de canjeos</Nav.Link>
           <Nav.Link href="/Registrar" style={{ color: "#252569", fontWeight: "bold" }}>Crear cuenta de chofer</Nav.Link>
           <Nav.Link href="/RegistrarRuta" style={{ color: "#252569", fontWeight: "bold" }}>Craer nueva ruta</Nav.Link>
+          <Nav.Link href="/AdminPuntos" style={{ color: "#252569", fontWeight: "bold" }}>Transferir</Nav.Link>
 
         </Nav>
       </Navbar>

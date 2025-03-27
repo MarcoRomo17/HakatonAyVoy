@@ -26,7 +26,7 @@ app.get("/", (_req: Request,res: Response)=>{
 
 //RUTAS
 app.post("/ruta/create", registrarRuta)
-app.get("/ruta/getOne", traerRuta )
+app.post("/ruta/getOne", traerRuta )
 app.get("/ruta/getAll", traerTodasRutas)
 app.delete("/ruta/delete", borrarRuta )
 

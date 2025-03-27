@@ -8,11 +8,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Chat = () => {
   const navigation = useNavigation();
 
+  const [route, setRoute] = useState({})
+
   const [text, setText] = useState("")
   const [message, setMessage] = useState([])
 
   useEffect(()=>{
     getMesssages()
+    getRoute()
     
   },[])
   
@@ -25,6 +28,17 @@ const Chat = () => {
 
     } catch (error) {
       console.log("Ocurrio un error al obtener mensajes:", error)
+    }
+  }
+
+  const getRoute = async ()=>{
+    try {
+      const res = await axios.post("http://172.16.32.77:/ruta/getOne", { rutaID:await AsyncStorage.getItem("ruta") })
+      const route = res.data.RutaEncontrarda
+      console.log(route.numeroRuta)
+      setRoute(route)
+    } catch (error) {
+      console.log("Ocurrio un error al obtener la ruta:", error)
     }
   }
  
@@ -80,7 +94,7 @@ const Chat = () => {
                 </Pressable>
             </View>
       
-            <Text style={styles.Title}>CHAT RUTA: 50</Text>
+            <Text style={styles.Title}>CHAT RUTA: {route.numeroRuta}</Text>
             <ScrollView style={styles.ChatContainer}>
             
             {

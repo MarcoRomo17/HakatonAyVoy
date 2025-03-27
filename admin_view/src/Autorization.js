@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Card, Container, Nav, Table, Navbar, Button } from "react-bootstrap";
 
 
@@ -9,6 +11,71 @@ export const Autorization = () => {
     { id: 4, nombre: "Laura", apellido: "Martínez", recompensa: "Bono economico", fecha:"29/11/24" },
   ];
 //De momento solo hice un arreglo pero vamos a usar los datos de la bd
+const [Solicitudes, setSolicitudes] = useState([]);
+useEffect(()=>{
+  obtenerSolicitudes()
+  
+},[])
+
+const obtenerSolicitudes= async()=>{
+  try {
+    const solicitudesObtenidas= await axios.get("http://localhost:4010/solicitud/getAll")
+    console.log(solicitudesObtenidas.data.todasLasSolicitudes)
+    setSolicitudes(solicitudesObtenidas.data.todasLasSolicitudes)
+  } catch (error) {
+    console.log("Ocurrio un error: ", error)
+  }
+}
+
+const aceptarSolicitud= async(datos)=>{
+  console.log("Recibo: ", datos)
+  datos.estado=true
+  console.log("Y despues de procesar es: ",datos)
+
+  const datosAHistorial={
+    conductor:datos.conductor._id,
+    recompensa:datos.recompensa._id,
+    estado:datos.estado,
+    fecha:datos.fecha
+  }
+
+  console.log("Hola, soy datos a mandar: ", datosAHistorial)
+
+  const datosAPuntos={
+    conductorID:datos.conductor._id,
+     puntos:datos.conductor.puntos - datos.recompensa.puntos
+  }
+
+  console.log("Soy puntos datos a puntos", datosAPuntos)
+
+try {
+    //Crear historiar
+ //const crearHistorial= await axios.post("http://localhost:4010/historial/register", datosAMandar)
+
+ //BajarPuntos
+  //const modificarPuntos= await axios.put("http://localhost:4010/conductor/puntos", datosAPuntos)
+ //BorrarSolicitud
+ //const solicitudEliminada= await axios.delete("http://localhost:4010/solicitud/delete",{data:{solicitudID:datos._id}})
+} catch (error) {
+  console.log("Hubo un error: ", error)
+}
+
+}
+
+const denegarSolicitud= async(datos)=>{
+  console.log("Recibo: ", datos)
+  datos.estado=false
+  console.log("Y despues de procesar es: ",datos)
+  try {
+  //Crear historiar
+  //const crearHistorial= await axios.post("http://localhost:4010/historial/register", datos)
+   //BorrarSolicitud
+ //const solicitudEliminada= await axios.delete("http://localhost:4010/solicitud/delete",{data:{solicitudID:datos._id}})
+  } catch (error) {
+    console.log("Hubo un error", error)
+  }
+}
+
   return (
     <Container fluid style={{ backgroundColor: "#252569", minHeight: "100vh", padding: "20px" }}>
       
@@ -24,6 +91,7 @@ export const Autorization = () => {
           <Nav.Link href="/Historial" style={{ color: "#252569", fontWeight: "bold" }}>Historial de canjeos</Nav.Link>
           <Nav.Link href="/Registrar" style={{ color: "#252569", fontWeight: "bold" }}>Crear cuenta de chofer</Nav.Link>
           <Nav.Link href="/RegistrarRuta" style={{ color: "#252569", fontWeight: "bold" }}>Craer nueva ruta</Nav.Link>
+          <Nav.Link href="/AdminPuntos" style={{ color: "#252569", fontWeight: "bold" }}>Transferir</Nav.Link>
 
         </Nav>
       </Navbar>
@@ -50,13 +118,14 @@ export const Autorization = () => {
             </tr>
           </thead>
           <tbody>
-            {choferes.map((chofer) => (
-              <tr key={chofer.id} className="text-center">
+            {Solicitudes.map((chofer) => (
+              <tr key={chofer._id} className="text-center">
                 <td style={{ fontWeight: "bold", color: "#ffc107" }}>{chofer.id}</td>
-                <td>{chofer.nombre}</td>
-                <td>{chofer.apellido}</td>
-                <td>{chofer.recompensa}</td>
-                <td><Button variant="success" className="me-3">Autorizar</Button><Button variant="danger">Denegar</Button></td>
+                <td>{chofer.conductor.name}</td>
+                <td>{chofer.conductor.ap} {chofer.conductor.am}</td>
+                <td>{chofer.recompensa.concepto}</td>
+                <td><Button variant="success" className="me-3" onClick={()=>aceptarSolicitud(chofer)}>Autorizar</Button>
+                <Button variant="danger" onClick={()=>denegarSolicitud(chofer)}>Denegar</Button></td>
               </tr>
             ))}
           </tbody>

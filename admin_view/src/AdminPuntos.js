@@ -23,9 +23,10 @@ export const AdminPuntos = () => {
           <Nav.Link href="/Admin" style={{ color: "#252569", fontWeight: "bold" }}>Choferes</Nav.Link>
           <Nav.Link href="/Rutas" style={{ color: "#252569", fontWeight: "bold" }}>Rutas</Nav.Link>
           <Nav.Link href="/Autorizacion" style={{ color: "#252569", fontWeight: "bold" }}>Autorizacion de canjeos</Nav.Link>
-          <Nav.Link href="/Historial" style={{ color: "#ca2193", fontWeight: "bold" }}>Historial de canjeos</Nav.Link>
+          <Nav.Link href="/Historial" style={{ color: "#252569", fontWeight: "bold" }}>Historial de canjeos</Nav.Link>
           <Nav.Link href="/Registrar" style={{ color: "#252569", fontWeight: "bold" }}>Crear cuenta de chofer</Nav.Link>
           <Nav.Link href="/RegistrarRuta" style={{ color: "#252569", fontWeight: "bold" }}>Craer nueva ruta</Nav.Link>
+          <Nav.Link href="/AdminPuntos" style={{ color: "#ca2193", fontWeight: "bold" }}>Transferir</Nav.Link>
 
         </Nav>
       </Navbar>
@@ -39,7 +40,7 @@ export const AdminPuntos = () => {
 
       {/* Tabla de los choferes */}
       <Container fluid className="p-4 rounded shadow-lg" style={{ backgroundColor: "#1a1a40" }}>
-        <h3 className="text-center text-white mb-4">Administrar puntos</h3>
+        <h3 className="text-center text-white mb-4">Transferir puntos</h3>
 
         <Table striped bordered hover responsive className="text-white" style={{ backgroundColor: "#0b1d5f" }}>
           <thead>

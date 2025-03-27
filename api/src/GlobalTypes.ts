@@ -10,11 +10,15 @@ export interface IConductor {
     ruta:Schema.Types.ObjectId | string;//decimos que es de tipo object ID o de string se suppone es para saber cual tiene en turno
     puntos:number;
 }
-
 export interface IRuta{
     numeroRuta: string;
+    coordenadas: ICoordenada
     
-    
+}
+
+interface ICoordenada {
+    latitude: number;
+    longitude: number;
 }
 
 export interface IMensaje{

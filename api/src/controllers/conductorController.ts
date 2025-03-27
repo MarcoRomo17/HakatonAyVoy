@@ -192,3 +192,27 @@ export const cambiarRuta= async (req:Request, res: Response): Promise<any>=>{
         return res.status(500).json({msg:"Algo salio mal en el servidor"})
       }
 }
+export const signin = async (req:Request, res: Response): Promise<any> => {
+    //correo y contraseña
+    //verificar que el usuario existe
+    try{
+        const user = await conductorModel.findOne({email:req.body.email, password:req.body.password} )
+
+        if(!user){
+             //si no existe devuelven error
+            return res.status(400).json({
+                msg: "No existe usuario"
+            })
+        }
+
+        return res.status(200).json({
+            msg: "Usuario existe",
+            user
+        })
+
+    }catch(error){
+        return res.status(500).json({
+            msg: "Hubo un error ingresar el usuario"
+        })
+    }
+}

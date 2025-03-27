@@ -9,16 +9,61 @@ import {
     StyleSheet,
 } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState } from "react";
+import axios from "axios";
+
 
 const Login = () => {
+
+    const [data, setData] = useState({})
+
+
+    const saveData = async () => {
+        try {
+            
+          const res = await axios.post("http://172.16.32.77:4010/conductor/signin", data)
+          const user = res.data.user
+            
+          const {
+          _id,
+         name,
+          ap,
+          am,
+          email,
+          password,
+          ruta,
+          puntos} = user
+
+          await AsyncStorage.setItem("_id", String(_id));
+          await AsyncStorage.setItem("name", name);
+          await AsyncStorage.setItem("email", email);
+          await AsyncStorage.setItem("ap", ap);
+          await AsyncStorage.setItem("am", am);
+          await AsyncStorage.setItem("email", email); 
+          await AsyncStorage.setItem("password", password);
+          await AsyncStorage.setItem("ruta", String(ruta));
+          await AsyncStorage.setItem("puntos", String(puntos)); 
+
+          return true
+        } catch (error) {
+          console.error('Error al guardar los datos', error);
+        }
+      };
     const navigation = useNavigation();
 
     function goToRecoverPassword() {
         navigation.navigate("RecoverPassword");
     }
 
-    const goToHome = () => {
-        navigation.navigate("Main");
+    const goToHome = async () => {
+        const exists = await saveData()
+        if (exists){
+            navigation.navigate("Main");
+        }else{
+            console.log("Error al iniciar sesion")
+        }
+
     };
 
     return (
@@ -37,6 +82,8 @@ const Login = () => {
                     style={styles.input}
                     placeholder="Correo Electrónico"
                     placeholderTextColor="#444"
+                    value={data.email}
+                    onChangeText={(text) => setData({ ...data, email: text })}
                 />
             </View>
 
@@ -47,11 +94,13 @@ const Login = () => {
                     secureTextEntry={true}
                     placeholder="Contraseña"
                     placeholderTextColor="#444"
+                    value={data.password}
+                    onChangeText={(text) => setData({ ...data, password: text })}
                 />
             </View>
 
             <View>
-                <Pressable style={styles.buttonLogin} onPress={goToHome}>
+                <Pressable style={styles.buttonLogin} onPress={()=>{goToHome(); }}>
                     <Text style={styles.buttonLogin.buttonText}>
                         Iniciar Sesión
                     </Text>

@@ -9,8 +9,21 @@ import {
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = () => {
+
+    const getData = async (key) => {
+        try {
+          const value = await AsyncStorage.getItem(key);
+          if (value !== null) {
+            return value;
+          }
+        } catch (error) {
+          console.error('Error al recuperar los datos', error);
+        }
+      };
+
     const navigation = useNavigation();
 
     return (
@@ -68,7 +81,7 @@ const Home = () => {
                         onPress={() => navigation.navigate("Points")}
                     >
                         <Text style={styles.miniTitle}>Puntos:</Text>
-                        <Text style={styles.points}>45</Text>
+                        <Text style={styles.points}>{getData("puntos")}</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity

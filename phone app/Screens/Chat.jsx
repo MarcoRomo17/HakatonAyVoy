@@ -3,6 +3,7 @@ import { DrawerActions, useNavigation } from "@react-navigation/native";
 import { StyleSheet, View, Image, Pressable, ScrollView, TouchableOpacity, TextInput, Text  } from "react-native";
 import { useEffect, useState } from 'react';
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Chat = () => {
   const navigation = useNavigation();
@@ -17,10 +18,10 @@ const Chat = () => {
   
   const getMesssages  = async () =>{
     try {
-      const res = await axios.post("http://192.168.0.7:4010/msg/getMsg", {rutaID: "67dcdd7db802a5f306ffbf2e"})
+      const res = await axios.post("http://172.16.32.77:4010/msg/getMsg", { rutaID:await AsyncStorage.getItem("ruta") })
       const msg = res.data.mensajesDeLaRuta
      
-      setMessage(msg)
+      setMessage([...msg])
 
     } catch (error) {
       console.log("Ocurrio un error al obtener mensajes:", error)
@@ -30,13 +31,13 @@ const Chat = () => {
   const sendmessage = async ()=>{
     if(text){
       const data= {
-        conductor: "67e364f4b5ee64efcbd05007",
-        ruta: "67dcdd7db802a5f306ffbf2e",
+        conductor: await AsyncStorage.getItem("_id"),
+        ruta: await AsyncStorage.getItem("ruta"),
         texto: text,
         fecha: getDate()
       }
       try {
-       await axios.post("http://192.168.0.7:4010/msg/create", data)
+       await axios.post("http://172.16.32.77:4010/msg/create", data)
        getMesssages()
       } catch (error) {
         console.log("Ocurrio un error enviar mensaje:", error)

@@ -2,7 +2,7 @@ import  { Application, Response, Request } from "express";
 import cors from "cors";
 import express from "express"
 import { borrarRuta, registrarRuta, traerRuta, traerTodasRutas } from "./controllers/rutaController";
-import { borrarConductor, cambiarRuta, editarConductor, puntos, registrarConductor, traerTodosCondutores, traerUnConductor } from "./controllers/conductorController";
+import { borrarConductor, cambiarRuta, editarConductor, puntos, registrarConductor, signin, traerTodosCondutores, traerUnConductor } from "./controllers/conductorController";
 import { mostarMensajesPorRuta, registrarMensaje } from "./controllers/mensajeController";
 import { borrarSolicitud, registrarSolicitud, traertodasLasSolicitudes } from "./controllers/solicitudController";
 import { borrarRecompensa, editarRecompensa, registrarRecompensa, traerRecompensasTodas, traerUnaRecompensa } from "./controllers/recompensaController";
@@ -32,6 +32,7 @@ app.delete("/ruta/delete", borrarRuta )
 
 //CONDUCTORES
 app.post("/conductor/create", registrarConductor)
+app.post("/conductor/signin", signin)
 app.get("/conductor/getOne", traerUnConductor)
 app.get("/conductor/getAll", traerTodosCondutores)
 app.delete("/conductor/delete", borrarConductor)

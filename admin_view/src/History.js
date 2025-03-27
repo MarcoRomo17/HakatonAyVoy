@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Card, Container, Nav, Table, Navbar } from "react-bootstrap";
 
 
@@ -15,6 +17,21 @@ export const History = () => {
     { id: 4, nombre: "Laura", apellido: "Martínez", recompensa: "Bono economico", fecha:"29/11/24" , estado:"Denegado"},
   ];
 //De momento solo hice un arreglo pero vamos a usar los datos de la bd
+
+useEffect(()=>{
+  obtenerHistorial()
+},[])
+const [Historial, setHistorial] = useState([]);
+
+const obtenerHistorial= async()=>{
+  try {
+    const historiales= await axios.get("http://localhost:4010/historial/getAll")
+    setHistorial(historiales.data.todoHistorial)
+    console.log(historiales.data.todoHistorial)
+  } catch (error) {
+    console.log("Hubo un error", error)
+  }
+}
   return (
     <Container fluid style={{ backgroundColor: "#252569", minHeight: "100vh", padding: "20px" }}>
       
@@ -57,14 +74,14 @@ export const History = () => {
             </tr>
           </thead>
           <tbody>
-            {choferes.map((chofer) => (
-              <tr key={chofer.id} className="text-center">
-                <td style={{ fontWeight: "bold", color: "#ffc107" }}>{chofer.id}</td>
-                <td>{chofer.nombre}</td>
-                <td>{chofer.apellido}</td>
-                <td>{chofer.recompensa}</td>
-                <td>{chofer.fecha}</td>
-                <td>{chofer.estado}</td>
+            {Historial.map((his) => (
+              <tr key={his.id} className="text-center">
+                <td style={{ fontWeight: "bold", color: "#ffc107" }}>{his.id}</td>
+                <td>{his.conductor.name}</td>
+                <td>{his.conductor.ap} {his.conductor.am}</td>
+                <td>{his.recompensa.concepto}</td>
+                <td>{his.fecha}</td>
+                <td>{his.estado ? "Aprobada" : "Denegada"}</td>
               </tr>
             ))}
           </tbody>

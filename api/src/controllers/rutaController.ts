@@ -6,16 +6,18 @@ import { rutaModel } from "../models/RutaModel";
 export const registrarRuta= async (req:Request, res: Response): Promise<any>=>{
     try {
         const {numeroRuta}=req.body;
+        const {coordenadas}=req.body
 
         //Validar que venga todo:
-        if(!numeroRuta){
+        if(!numeroRuta || !coordenadas){
             return res.status(400).json({
                 msg:" faltan datos para crear la ruta"
             })                     //devolvemos un json
         }
 
         const rutaCreada= await rutaModel.create({
-         numeroRuta
+         numeroRuta,
+         coordenadas
         })
 
         return res.status(200).json({msg:"ruta creada con exito."})

@@ -3,8 +3,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Login from "./Screens/Login";
 import RecoverPassword from "./Screens/RecoverPassword";
 import { DrawerNavigator } from "./Components/Drawer";
-
+import axios from "axios";
+import constantes from "./config.js"
 const Stack = createStackNavigator();
+
+axios.defaults.baseURL = constantes.apiUrl
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 const App = () => {
     return (

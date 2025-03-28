@@ -24,7 +24,7 @@ const Points = () => {
 
     const getPoints = async () =>{
         try {
-            const res = await axios.post("http://172.16.32.57:4010/conductor/signin", {email: await AsyncStorage.getItem("email"), password:await AsyncStorage.getItem("password") })
+            const res = await axios.post("/conductor/signin", {email: await AsyncStorage.getItem("email"), password:await AsyncStorage.getItem("password") })
             const puntos = res.data.user.puntos
             setPoints(puntos)
             console.log(puntos)

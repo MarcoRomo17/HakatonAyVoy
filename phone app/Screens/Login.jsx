@@ -23,7 +23,7 @@ const Login = () => {
     const saveData = async () => {
         try {
             
-          const res = await axios.post("http://172.16.32.57:4010/conductor/signin", data)
+          const res = await axios.post("/conductor/signin", data)
           const user = res.data.user
 
           const {

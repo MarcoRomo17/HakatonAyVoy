@@ -18,7 +18,7 @@ const Rewards = () => {
     const getRewards = async () => {
         try {
             const res = await axios.get(
-                "http://172.16.32.57:4010/recompensas/getAll"
+                "/recompensas/getAll"
             );
             setRewards(res.data.todasLasRecompensas)
         } catch (error) {

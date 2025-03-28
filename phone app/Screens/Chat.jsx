@@ -5,12 +5,24 @@ import { StyleSheet, View, Image, Pressable, ScrollView, TouchableOpacity, TextI
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Modal from 'react-native-modal';
+
 
 const Chat = () => {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   const navigation = useNavigation();
 
   const [route, setRoute] = useState({})
 
+  const [PreMessage, setPreMessage] = useState([
+    "Ruta Bloqueada",
+    "Camion Lleno"
+  ])
   const [text, setText] = useState("")
   const [message, setMessage] = useState([])
 
@@ -19,8 +31,8 @@ const Chat = () => {
     getRoute()
 
     const interval = setInterval(() => {
-      getMesssages(); // Llama a la función para obtener mensajes periódicamente
-    }, 2000); // Se ejecuta cada 3 segundos
+      getMesssages(); 
+    }, 100); 
   
     return () => clearInterval(interval);
     
@@ -28,7 +40,7 @@ const Chat = () => {
   
   const getMesssages  = async () =>{
     try {
-      const res = await axios.post("http://172.16.32.57:4010/msg/getMsg", { rutaID:await AsyncStorage.getItem("ruta") })
+      const res = await axios.post("/msg/getMsg", { rutaID:await AsyncStorage.getItem("ruta") })
       const msg = res.data.mensajesDeLaRuta
      
       setMessage([...msg])
@@ -40,7 +52,7 @@ const Chat = () => {
 
   const getRoute = async ()=>{
     try {
-      const res = await axios.post("http://172.16.32.57:4010/ruta/getOne", { rutaID:await AsyncStorage.getItem("ruta") })
+      const res = await axios.post("/ruta/getOne", { rutaID:await AsyncStorage.getItem("ruta") })
       const route = res.data.RutaEncontrarda
       setRoute(route)
       console.log(res)
@@ -49,22 +61,27 @@ const Chat = () => {
     }
   }
  
-  const sendmessage = async ()=>{
-    if(text){
+  const sendmessage = async (message = null)=>{
+    let sendText = text || message
+
+    if(sendText){
       const data= {
         conductor: await AsyncStorage.getItem("_id"),
         ruta: await AsyncStorage.getItem("ruta"),
-        texto: text,
+        texto: sendText,
         fecha: getDate()
       }
       try {
-       await axios.post("http://172.16.32.57:4010/msg/create", data)
+       await axios.post("/msg/create", data)
        getMesssages()
+
+       setModalVisible(false)
+       setText("")
+        
       } catch (error) {
         console.log("Ocurrio un error enviar mensaje:", error)
       }
       //setMessage([...message, Addmessage])
-      setText("")
     }
   }
   
@@ -120,6 +137,32 @@ const Chat = () => {
                   ))
                 }
               </ScrollView>
+              
+              <Modal isVisible={isModalVisible}>
+                <View>
+                  {
+                    PreMessage.map((m, i)=>(
+
+                      <TouchableOpacity 
+                        key={i} 
+                        style={styles.PreMessageContainer} 
+                        onPress={() => {
+                          sendmessage(m)
+                        }}>
+                        <Text>{m}</Text>
+                      </TouchableOpacity>
+
+                    ))
+                  }
+                </View>
+              </Modal>
+
+
+
+
+              <TouchableOpacity style={styles.PreMessageButton} onPress={toggleModal}>
+                  <Text style={styles.PreMessageButton.text} >()</Text>
+                </TouchableOpacity>
 
               <View style={styles.inputContainer}>
                 <TextInput value={text} onChangeText={(text) => setText(text)} style={styles.Input} placeholder='Escribir Mensaje'></TextInput>
@@ -128,6 +171,8 @@ const Chat = () => {
                   <Ionicons name="send-sharp" size={16} color="white" />
                 </TouchableOpacity>
               </View>
+
+
 
     </View>
     );
@@ -252,6 +297,36 @@ const styles = StyleSheet.create({
         fontSize: 16
       }
     },
+    PreMessageButton:{
+      borderRadius: "100%",
+      backgroundColor: "white",
+      width: "50",
+      height: "50",
+      alignSelf: "flex-end",
+      alignItems: "center",
+      marginBottom: "10",
+      marginRight: "5",
+
+
+      text : {
+        padding: 20,
+        fontSize: 10
+      }
+    },
+    Modal:{
+      backgroundColor: "white"
+    },
+    
+    PreMessageContainer:{
+      fontSize: 18,
+      padding: 15,
+      marginVertical: 5,
+      borderWidth: 1,
+      backgroundColor: "#fff",
+      borderRadius: 20,
+      alignSelf: "center",
+      width: "70%"
+    },
   });
 
-export default Chat;
+export default Chat;

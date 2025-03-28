@@ -52,7 +52,7 @@ const Chat = () => {
 
   const getRoute = async ()=>{
     try {
-      const res = await axios.post("/ruta/getOne", { rutaID:await AsyncStorage.getItem("ruta") })
+      const res = await axios.get("/ruta/getOne", { rutaID:await AsyncStorage.getItem("ruta") })
       const route = res.data.RutaEncontrarda
       setRoute(route)
       console.log(res)

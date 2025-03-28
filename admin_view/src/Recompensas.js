@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Container, Nav, Card, Navbar, Button, Table } from "react-bootstrap";
+import { Container, Nav, Card, Navbar, Button, Table, Form } from "react-bootstrap";
 
 export const Recompensa = () => {
   useEffect(()=>{
@@ -33,7 +33,7 @@ export const Recompensa = () => {
           <Nav.Link href="/Historial" style={{ color: "#252569", fontWeight: "bold" }}>Historial de canjeos</Nav.Link>
           <Nav.Link href="/Registrar" style={{ color: "#252569", fontWeight: "bold" }}>Crear cuenta de chofer</Nav.Link>
           <Nav.Link href="/RegistrarRuta" style={{ color: "#252569", fontWeight: "bold" }}>Craer nueva ruta</Nav.Link>
-          <Nav.Link href="/AdminPuntos" style={{ color: "#252569", fontWeight: "bold" }}>T  ransferir</Nav.Link>
+          <Nav.Link href="/AdminPuntos" style={{ color: "#252569", fontWeight: "bold" }}>Transferir</Nav.Link>
 
         </Nav>
       </Navbar>
@@ -52,8 +52,12 @@ export const Recompensa = () => {
       >
         
       <Container style={{display: "flex"}}>
+      <Container className="me-4" style={{width:"50%", border:"5px solid #ca2193 ", backgroundColor:"#252569 "}}>
+        <Card.Title className="mt-3 mb-3" style={{color:"white"}}>Recompensas vigentes</Card.Title>
       <Table striped bordered hover responsive className="text-white" style={{ backgroundColor: "#0b1d5f" }}>
+
           <thead>
+            
             <tr className="text-center" style={{ backgroundColor: "#ca2193", color: "#fff" }}>
               
               <th>Concepto</th>
@@ -72,14 +76,19 @@ export const Recompensa = () => {
             ))}
           </tbody>
         </Table>
-          
-          <Card style={{width:"50%", margin:"auto"}}>
-            <Card.Body>
-              <Card.Title>Registrar recompensa</Card.Title>
-            </Card.Body>
-          </Card>
+        </Container>
+        
+      <Container style={{width:"50%", border:"5px solid #ca2193 ", backgroundColor:"#252569 "}}>    
+        <Card.Title className="mb-3 mt-3" style={{color:"white"}}>Crear nueva recompensa</Card.Title>
+        <Form>
+          <Form.Control className="mb-3" placeholder="Concepto"/>
+          <Form.Control className="mb-3" placeholder="Puntos"/>
+        </Form>
+        <Button className="mb-3" style={{backgroundColor:"#ca2193 "}}>Registrar recompensa</Button>
       </Container>
 
+
+      </Container>
         {/*Aqui hice solo un mapeo con 4 numero pero con este vamos a usar los registros*/}
         
       </Container>

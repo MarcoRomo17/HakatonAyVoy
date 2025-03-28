@@ -78,8 +78,8 @@ const obtenerHistorial= async()=>{
             {Historial.map((his) => (
               <tr key={his.id} className="text-center">
                 <td style={{ fontWeight: "bold", color: "#ffc107" }}>{his.id}</td>
-                <td>{his.conductor.name}</td>
-                <td>{his.conductor.ap} {his.conductor.am}</td>
+                <td>{his.conductor ? his.conductor.name : "Conductor borrado"}</td>
+                <td>{his.conductor ? his.conductor.ap : "N /"} { his.conductor ? his.conductor.am : " A"}</td>
                 <td>{his.recompensa.concepto}</td>
                 <td>{his.fecha}</td>
                 <td>{his.estado ? "Aprobada" : "Denegada"}</td>

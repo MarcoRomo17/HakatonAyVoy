@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Card, Container, Nav, Table, Navbar, Form, Button} from "react-bootstrap";
 
 
@@ -11,6 +13,47 @@ export const AdminPuntos = () => {
     { id: 6, nombre: "Juan", apellido: "Pérez", puntos:"0" },
   ];
 //De momento solo hice un arreglo pero vamos a usar los datos de la bd
+useEffect(()=>{
+  obtenerConductores()
+},[])
+const [Choferes, setChoferes] = useState([  ]);
+const [ValorPuntos, setValorPuntos] = useState();
+
+const obtenerConductores= async()=>{
+
+  try {
+    const condu =await axios.get("http://localhost:4010/conductor/getAll")
+    const conductores= condu.data.todosConductores
+    setChoferes(conductores)
+    console.log("Hola, soy conductores",conductores)
+  } catch (error) {
+    console.log("Ocurrio un error:", error)
+    
+  }
+}
+
+const recogerPuntos=(e , datos)=>{
+  e.preventDefault();
+  const PuntosRecibidos= e.target.value
+  setValorPuntos(PuntosRecibidos)
+  console.log("Soy puntos recibidos:", PuntosRecibidos)
+}
+
+const transferirPuntos= async(datos)=>{
+  const datosAMandar={
+    conductorID:datos._id,
+     puntos:datos.puntos+Number(ValorPuntos)
+  }
+  console.log("Hola, soy los datos antes de tranferir", datosAMandar)
+  try {
+    const PuntosTransferidos= await axios.put("http://localhost:4010/conductor/puntos",datosAMandar)
+    alert("Puntos tranferidos exitosamente")
+  } catch (error) {
+    console.log("Hubo un error", error)
+  }
+}
+
+
   return (
     <Container fluid style={{ backgroundColor: "#252569", minHeight: "100vh", padding: "20px" }}>
       
@@ -53,21 +96,21 @@ export const AdminPuntos = () => {
             </tr>
           </thead>
           <tbody>
-            {choferes.map((chofer) => (
+            {Choferes.map((chofer) => (
               <tr key={chofer.id} className="text-center">
                 <td style={{ fontWeight: "bold", color: "#ca2193 " }}>{chofer.id}</td>
-                <td>{chofer.nombre}</td>
-                <td>{chofer.apellido}</td>
+                <td>{chofer.name }</td>
+                <td>{chofer.ap} {chofer.am}</td>
                 <td>{chofer.puntos}</td>
                 <td style={{display:"flex"}}>
-                    <Form.Select>
-                    <option>--Seleccionar cantidad--</option>
-                    <option>20 puntos("Puntualidad")</option>
-                    <option>50 puntos("Conducta")</option>
-                    <option>100 puntos("Cuidado de espacio de trabajo")</option>
+                    <Form.Select  onChange={recogerPuntos}>
+                    <option >--Seleccionar cantidad--</option>
+                    <option value={20}>20 puntos("Puntualidad")</option>
+                    <option value={50}>50 puntos("Conducta")</option>
+                    <option value={100}>100 puntos("Cuidado de espacio de trabajo")</option>
                     </Form.Select>
 
-                    <Button variant="success">Transferir</Button>
+                    <Button variant="success" onClick={()=>transferirPuntos(chofer)}>Transferir</Button>
                     </td>
               </tr>
             ))}

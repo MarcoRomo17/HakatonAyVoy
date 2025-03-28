@@ -8,10 +8,12 @@ export const registrarHistorial= async (req:Request, res: Response): Promise<any
            estado,
             fecha}=req.body;
 
+            console.log(`Recibo ${conductor}, ${recompensa}, ${estado}, ${fecha}`)
+
         //Validar que venga todo:
         if(!conductor||
             !recompensa||
-            !estado||
+            
             !fecha){
             return res.status(400).json({
                 msg:" faltan datos para registrar el historial"

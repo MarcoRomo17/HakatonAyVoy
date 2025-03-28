@@ -1,8 +1,59 @@
-import { Container, Nav, Card, Navbar, Button } from "react-bootstrap";
+import { Container, Nav, Card, Navbar, Button, Form } from "react-bootstrap";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export const Rutas = () => {
+  const [route, setRoute] = useState({});
+  const [text, setText] = useState('');
+  const [message, setMessage] = useState([]);
+
+  useEffect(() => {
+    getMessages();
+
+    const interval = setInterval(() => {
+      getMessages();
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const getMessages = async () => {
+    try {
+      const res = await axios.post('http://localhost:4010/msg/getMsg', {
+        rutaID: "67dcdd81b802a5f306ffbf30",
+      });
+      setMessage(res.data.mensajesDeLaRuta);
+    } catch (error) {
+      console.log('Error al obtener mensajes:', error);
+    }
+  };
+
+ 
+  const sendMessage = async () => {
+    if (text) {
+      const data = {
+        conductor: "67e0ce1d521748a129425fb2",
+        ruta: "67dcdd81b802a5f306ffbf30",
+        texto: text,
+        fecha: getDate(),
+      };
+      try {
+        await axios.post('http://localhost:4010/msg/create', data);
+        getMessages();
+      } catch (error) {
+        console.log('Error al enviar mensaje:', error);
+      }
+      setText('');
+    }
+  };
+
+  const getDate = () => {
+    const fecha = new Date();
+    return fecha.toISOString().replace('T', ' ').substring(0, 19);
+  };
+
   return (
-    <Container fluid style={{ backgroundColor: "#252569", minHeight: "100vh", padding: "20px" }}>
+    <Container fluid style={{ backgroundColor: "#252569", minHeight: "100vh", padding: "20px"}}>
 
 <Navbar expand="lg" className="mb-4 p-3 rounded shadow-lg" style={{ backgroundColor: "#fff" }}>
         <Navbar.Brand href="#" style={{ fontWeight: "bold", color: "#252569" }}>
@@ -26,26 +77,53 @@ export const Rutas = () => {
         </Card.Text>
       </Card>
 
-      
-      <Container
-        fluid
-        className="d-flex flex-wrap justify-content-center gap-4"
-        style={{ backgroundColor: "#252569", padding: "20px", borderRadius: "10px" }}
-      >
-        {/*Aqui hice solo un mapeo con 4 numero pero con este vamos a usar los registros*/}
-        {[1, 2, 3, 4].map((num) => ( 
-          <Card key={num} className="shadow-lg" style={{ width: "20rem", height: "23rem", borderRadius: "15px" }}>
-            <Card.Body
-              className="d-flex flex-column align-items-center justify-content-center text-white"
-              style={{ backgroundColor: "#0b1d5f", borderRadius: "15px", textAlign: "center" }}
-            >
-              <Card.Text style={{ fontSize: "1.2rem", fontWeight: "bold" }}>Número de Ruta:</Card.Text>
-              <Card.Text style={{ fontSize: "2rem", fontWeight: "bold", color: "#ffc107" }}>{num}</Card.Text>
-              <Button variant="warning">Chat de ruta</Button>
-            </Card.Body>
-          </Card>
-        ))}
+
+      <Form.Select className="mb-3" aria-label="Default select example">
+      <option>Selecciona una ruta</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </Form.Select>
+
+    <Container style={{display:"flex"}}>
+
+
+      {/*Este es el chat de las rutas*/}
+    <Container className="text-white" style={{ backgroundColor: '#0b1d5f', alignContent: 'center', height: '300px', overflowY: 'auto', width:"50%"}}>
+        <h3 className="text-center text-white mb-4">Chat de la ruta: {route.numeroRuta}</h3>
+        <Container className="text-white" style={{ backgroundColor: '#0b1d5f', alignContent: 'center' }}>
+          <Container style={{ margin: '5px', display: 'flex', flexDirection: 'column', backgroundColor: 'white', width: '100%', height: '100%' }}>
+            {message.map((m) => (
+              <Card key={m._id} className="mb-2 mt-2" style={{ borderRadius: '10px', width: '50%', height: '50px', display: 'flex', flexDirection: 'row', backgroundColor: '#1a1a40' }}>
+                <Card.Text className="me-3" style={{ color: '#d4e300', margin: '5px' }}>{m.conductor.name}</Card.Text>
+                <Card.Text style={{ color: 'white', margin: '5px' }}>{m.texto}</Card.Text>
+              </Card>
+            ))}
+          </Container>
+        </Container>
+
+        <Container className="mt-3 d-flex">
+        <input
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Escribir Mensaje"
+          className="form-control me-2"
+        />
+        <button onClick={sendMessage} className="btn btn-warning">Enviar</button>
       </Container>
-    </Container>
+      </Container>
+
+
+      {/*Aqui va a ir el mapa de la ruta*/}
+      <Container className="p-4 rounded shadow-lg" style={{ backgroundColor: '#1a1a40', width:"50%"}}>
+        <Card style={{width:"100%", height:"100%"}}> 
+        </Card>
+      </Container>
+
+
+      </Container>
+      
+      
+      </Container>
   );
 };

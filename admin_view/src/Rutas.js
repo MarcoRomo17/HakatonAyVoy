@@ -6,18 +6,45 @@ export const Rutas = () => {
   const [route, setRoute] = useState({});
   const [text, setText] = useState('');
   const [message, setMessage] = useState([]);
+  const [Rutas, setRutas] = useState([]);
+  const [AllMSG, setAllMSG] = useState([]);
+  const [MSGFiltrados, setMSGFiltrados] = useState([]);
 
   useEffect(() => {
-    getMessages();
+   // getMessages();
+    obtenerRutas()
+    getAllMsg()
 
-    const interval = setInterval(() => {
+   /* const interval = setInterval(() => {
       getMessages();
     }, 2000);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(interval);*/
   }, []);
 
-  const getMessages = async () => {
+  const obtenerRutas= async ()=>{
+    try {
+      const rutasObtenidas1 = await axios.get("http://localhost:4010/ruta/getAll")
+      setRutas(rutasObtenidas1.data.TodasLasRutas)
+      console.log(rutasObtenidas1.data.TodasLasRutas)
+    } catch (error) {
+      console.log("Ocurrio un error:", error)
+    }
+  
+  } 
+
+  const setValue=(field, value)=>{
+
+    console.log("recibo de ruta: ", field, value)
+
+    const mensajesFiltrados = AllMSG.filter((msg)=>msg.ruta == value)
+    console.log("mensajes de la ruta : ", value)
+    console.log(mensajesFiltrados)
+    setMSGFiltrados(mensajesFiltrados)
+  
+  }
+
+  /*const getMessages = async () => {
     try {
       const res = await axios.post('http://localhost:4010/msg/getMsg', {
         rutaID: "67dcdd81b802a5f306ffbf30",
@@ -26,10 +53,20 @@ export const Rutas = () => {
     } catch (error) {
       console.log('Error al obtener mensajes:', error);
     }
-  };
+  };*/
+  const getAllMsg = async() =>{
+    try {
+      const res = await axios.get('http://localhost:4010/msg/getAll')
+      console.log(res.data.mensajesDeLaRuta)
+      setAllMSG(res.data.mensajesDeLaRuta)
+
+    } catch (error) {
+      console.log("Hubo un error: ", error  )
+    }
+  }
 
  
-  const sendMessage = async () => {
+ /* const sendMessage = async () => {
     if (text) {
       const data = {
         conductor: "67e0ce1d521748a129425fb2",
@@ -45,7 +82,7 @@ export const Rutas = () => {
       }
       setText('');
     }
-  };
+  };*/
 
   const getDate = () => {
     const fecha = new Date();
@@ -78,11 +115,13 @@ export const Rutas = () => {
       </Card>
 
 
-      <Form.Select className="mb-3" aria-label="Default select example">
+      <Form.Select className="mb-3" aria-label="Default select example"onChange={(e)=>setValue('ruta', e.target.value)}>
       <option>Selecciona una ruta</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
+      {
+                                        Rutas.map((ruta)=>(
+                                          <option value={ruta._id}>{ruta.numeroRuta}</option>
+                                        ))
+                                      }
     </Form.Select>
 
     <Container style={{display:"flex"}}>
@@ -93,12 +132,21 @@ export const Rutas = () => {
         <h3 className="text-center text-white mb-4">Chat de la ruta: {route.numeroRuta}</h3>
         <Container className="text-white" style={{ backgroundColor: '#0b1d5f', alignContent: 'center' }}>
           <Container style={{ margin: '5px', display: 'flex', flexDirection: 'column', backgroundColor: 'white', width: '100%', height: '100%' }}>
-            {message.map((m) => (
-              <Card key={m._id} className="mb-2 mt-2" style={{ borderRadius: '10px', width: '50%', height: '50px', display: 'flex', flexDirection: 'row', backgroundColor: '#1a1a40' }}>
-                <Card.Text className="me-3" style={{ color: '#d4e300', margin: '5px' }}>{m.conductor.name}</Card.Text>
-                <Card.Text style={{ color: 'white', margin: '5px' }}>{m.texto}</Card.Text>
-              </Card>
-            ))}
+            
+            {
+              MSGFiltrados.map((msg)=>(
+                  <Card>
+                    <Card.Body>
+                      <Card.Title>{msg.texto}</Card.Title>
+                      <Card.Text>{msg.conductor}</Card.Text>
+                    </Card.Body>
+                  </Card>)
+
+              )
+            }
+
+
+
           </Container>
         </Container>
 
@@ -109,7 +157,7 @@ export const Rutas = () => {
           placeholder="Escribir Mensaje"
           className="form-control me-2"
         />
-        <button onClick={sendMessage} className="btn btn-warning">Enviar</button>
+        <button  className="btn btn-warning">Enviar</button>
       </Container>
       </Container>
 

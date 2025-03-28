@@ -1,14 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {Text, View, ScrollView, Pressable, Image, StyleSheet} from 'react-native'; 
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import {DrawerActions, useNavigation} from '@react-navigation/native';
-
-// Datos del perfil
-const profileData = {
-  name: 'Juan Carlos',
-  lastName: 'Santoyo',
-  email: 'charly@utma.edu.mx',
-};
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProfileCard = ({value}) => (
     <View style={styles.card}>
@@ -18,8 +12,29 @@ const ProfileCard = ({value}) => (
 
 
 const Profile = () => {
+
+  const [user, setUser] = useState({
+    name: "",
+    email:"",
+    lastName: ""
+  })
+
+    useEffect(()=>{
+      getUser()
+      
+    },[])
+
   const navigation = useNavigation();
 
+  const getUser = async () =>{
+    const sUser={
+      name : await AsyncStorage.getItem("name"),
+      email : await AsyncStorage.getItem("email"),
+      lastNameP :await AsyncStorage.getItem("ap"),
+      lastNameM :await AsyncStorage.getItem("am")
+    }
+    setUser(sUser)
+  }
   return (
     <View style={styles.container}>
       {/* Navbar */}
@@ -45,13 +60,16 @@ const Profile = () => {
         <Text style={styles.personalInfo}>Información personal</Text>
 
         <Text style={styles.subtitle}>Nombre:</Text>
-        <ProfileCard label="Nombre" value={profileData.name} />
+        <ProfileCard label="Nombre" value={user.name} />
 
-        <Text style={styles.subtitle}>Apellido:</Text>
-        <ProfileCard label="Apellido" value={profileData.lastName} />
+        <Text style={styles.subtitle}>Apellido Paterno:</Text>
+        <ProfileCard label="Apellido" value={user.lastNameP} />
+
+        <Text style={styles.subtitle}>Apellido Materno:</Text>
+        <ProfileCard label="Apellido" value={user.lastNameM} />
 
         <Text style={styles.subtitle}>Correo:</Text>
-        <ProfileCard label="Correo" value={profileData.email} />
+        <ProfileCard label="Correo" value={user.email} />
 
         <Text style={styles.miniText} >Si necesita actualizar su correo electrónico o contraseña, por favor, comuníquese con el personal autorizado.</Text>
       </ScrollView>

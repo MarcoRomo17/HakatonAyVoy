@@ -8,11 +8,30 @@ import {
 } from "react-native";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
 import { TabNavigator } from "../Components/Tabs";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Points = () => {
-    const points = 150;
+    
+    const [points, setPoints] = useState("0")
+
+    useEffect(()=>{
+        getPoints()
+      },[])
+    
+
+    const getPoints = async () =>{
+        try {
+            const res = await axios.post("http://172.16.32.77:4010/conductor/signin", {email: await AsyncStorage.getItem("email"), password:await AsyncStorage.getItem("password") })
+            const puntos = res.data.user.puntos
+            setPoints(puntos)
+            console.log(puntos)
+        } catch (error) {
+            console.log("Ocurrio un error al obtener los puntos:", error)
+        }
+    }
 
     const navigation = useNavigation();
     return (

@@ -16,6 +16,12 @@ const Chat = () => {
   useEffect(()=>{
     getMesssages()
     getRoute()
+
+    const interval = setInterval(() => {
+      getMesssages(); // Llama a la función para obtener mensajes periódicamente
+    }, 2000); // Se ejecuta cada 3 segundos
+  
+    return () => clearInterval(interval);
     
   },[])
   
@@ -35,8 +41,8 @@ const Chat = () => {
     try {
       const res = await axios.post("http://172.16.32.77:/ruta/getOne", { rutaID:await AsyncStorage.getItem("ruta") })
       const route = res.data.RutaEncontrarda
-      console.log(route.numeroRuta)
       setRoute(route)
+      console.log(res)
     } catch (error) {
       console.log("Ocurrio un error al obtener la ruta:", error)
     }

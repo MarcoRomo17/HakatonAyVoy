@@ -19,7 +19,7 @@ const MapRoutes = () => {
 
   const getRoutes = async ()=>{
     try {
-      const res = await axios.get("http://172.16.32.77:/ruta/getAll")
+      const res = await axios.get("http://172.16.32.77:4010/ruta/getAll")
       const routes = res.data.TodasLasRutas
 
       const routesWithoutId = routes.map((rout) => ({

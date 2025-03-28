@@ -16,6 +16,8 @@ import { Register } from './RegisterDriver';
 import { RegisterRoute } from './RegisterRoute';
 import { AdminPuntos } from './AdminPuntos';
 import { ChatRuta } from './ChatRuta';
+import { Recompensa } from './Recompensas';
+
 
 const router = createBrowserRouter([
   {
@@ -53,6 +55,10 @@ const router = createBrowserRouter([
   {
     path: "/ChatRuta",
     element: <ChatRuta/>
+  },
+  {
+    path: "/Recompensa",
+    element: <Recompensa/>
   }
 ]);
 

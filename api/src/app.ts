@@ -3,7 +3,7 @@ import cors from "cors";
 import express from "express"
 import { borrarRuta, registrarRuta, traerRuta, traerTodasRutas } from "./controllers/rutaController";
 import { borrarConductor, cambiarRuta, editarConductor, puntos, registrarConductor, signin, traerTodosCondutores, traerUnConductor } from "./controllers/conductorController";
-import { mostarMensajesPorRuta, registrarMensaje } from "./controllers/mensajeController";
+import { mostarMensajesPorRuta, registrarMensaje, todosLosMensajes } from "./controllers/mensajeController";
 import { borrarSolicitud, registrarSolicitud, traertodasLasSolicitudes } from "./controllers/solicitudController";
 import { borrarRecompensa, editarRecompensa, registrarRecompensa, traerRecompensasTodas, traerUnaRecompensa } from "./controllers/recompensaController";
 import { registrarHistorial, traerTodoHistorial } from "./controllers/historialController";
@@ -43,7 +43,8 @@ app.put("/conductor/ruta", cambiarRuta)
 
 //MENSAJES
 app.post("/msg/create",registrarMensaje)
-app.post("/msg/getMsg",mostarMensajesPorRuta)
+app.get("/msg/getMsg",mostarMensajesPorRuta)
+app.get("/msg/getAll", todosLosMensajes)
 
 //SOLICITUDES
 app.post("/solicitud/create", registrarSolicitud)

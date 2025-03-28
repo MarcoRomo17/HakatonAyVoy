@@ -57,3 +57,21 @@ export const mostarMensajesPorRuta= async (req:Request, res: Response): Promise<
         return res.status(500).json({msg:"Fallo al intentartraer los mensajes"})
     }
 }
+
+export const todosLosMensajes= async (req:Request, res: Response): Promise<any>=>{
+    try {
+ 
+
+        const mensajesDeLaRuta= await mensajeModel.find()
+
+        return res.status(200).json({msg:"mensaje enviado con exito.",mensajesDeLaRuta})
+
+
+    } catch (error) {
+        console.log("Error al traer los mensajes")
+        console.log(error)
+        return res.status(500).json({msg:"Fallo al intentartraer los mensajes"})
+    }
+}
+
+    

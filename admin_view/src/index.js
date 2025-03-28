@@ -15,6 +15,7 @@ import { Autorization } from './Autorization';
 import { Register } from './RegisterDriver';
 import { RegisterRoute } from './RegisterRoute';
 import { AdminPuntos } from './AdminPuntos';
+import { ChatRuta } from './ChatRuta';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/AdminPuntos",
     element: <AdminPuntos/>
+  },
+  {
+    path: "/ChatRuta",
+    element: <ChatRuta/>
   }
 ]);
 

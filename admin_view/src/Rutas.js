@@ -1,4 +1,4 @@
-import { Container, Nav, Card, Navbar } from "react-bootstrap";
+import { Container, Nav, Card, Navbar, Button } from "react-bootstrap";
 
 export const Rutas = () => {
   return (
@@ -41,6 +41,7 @@ export const Rutas = () => {
             >
               <Card.Text style={{ fontSize: "1.2rem", fontWeight: "bold" }}>Número de Ruta:</Card.Text>
               <Card.Text style={{ fontSize: "2rem", fontWeight: "bold", color: "#ffc107" }}>{num}</Card.Text>
+              <Button variant="warning">Chat de ruta</Button>
             </Card.Body>
           </Card>
         ))}

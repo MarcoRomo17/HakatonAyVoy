@@ -9,25 +9,26 @@ import {
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import StatBar from "../Components/StatusBar";
 
 const Home = () => {
-
     const getData = async (key) => {
         try {
-          const value = await AsyncStorage.getItem(key);
-          if (value !== null) {
-            return value;
-          }
+            const value = await AsyncStorage.getItem(key);
+            if (value !== null) {
+                return value;
+            }
         } catch (error) {
-          console.error('Error al recuperar los datos', error);
+            console.error("Error al recuperar los datos", error);
         }
-      };
+    };
 
     const navigation = useNavigation();
 
     return (
         <ScrollView style={styles.container}>
+            <StatBar />
             <View style={styles.contentContainer}>
                 {/* Menú */}
                 <View style={styles.toppingContainer}>

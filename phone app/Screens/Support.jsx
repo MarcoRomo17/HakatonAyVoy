@@ -1,9 +1,17 @@
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
-import { StyleSheet, View, Image, Pressable, Text, Button } from "react-native";
+import { StyleSheet, View, Image, Pressable, Text, Alert } from "react-native";
 
 const Support = () => {
+    function WhatsappSupport() {
+        Alert.alert("Mandando a Whatsapp");
+    }
+
+    function CallSupport() {
+        Alert.alert("Mandando a Teléfono");
+    }
+
     const navigation = useNavigation();
     return (
         <View style={styles.container}>
@@ -63,15 +71,18 @@ const Support = () => {
             </View>
 
             <View style={styles.miniContainer}>
-                <View style={styles.WhatsContainer}>
+                <Pressable
+                    style={styles.WhatsContainer}
+                    onPress={WhatsappSupport}
+                >
                     <FontAwesome name="whatsapp" size={30} color="white" />
                     <Text style={styles.miniTitle}>Enviar Whatsapp</Text>
-                </View>
+                </Pressable>
 
-                <View style={styles.callContainer}>
+                <Pressable style={styles.callContainer} onPress={CallSupport}>
                     <FontAwesome5 name="phone-alt" size={30} color="white" />
                     <Text style={styles.miniTitle}>Realizar Llamada</Text>
-                </View>
+                </Pressable>
             </View>
         </View>
     );
@@ -159,7 +170,7 @@ const styles = StyleSheet.create({
     },
 
     callContainer: {
-        flexDirection: 'row',
+        flexDirection: "row",
         width: "45%",
         padding: 20,
         height: "auto",

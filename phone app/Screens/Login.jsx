@@ -7,6 +7,7 @@ import {
     TextInput,
     Pressable,
     StyleSheet,
+    Alert,
 } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -22,9 +23,9 @@ const Login = () => {
     const saveData = async () => {
         try {
             
-          const res = await axios.post("http://172.16.32.77:4010/conductor/signin", data)
+          const res = await axios.post("http://172.16.32.57:4010/conductor/signin", data)
           const user = res.data.user
-            
+
           const {
           _id,
          name,
@@ -61,6 +62,7 @@ const Login = () => {
         if (exists){
             navigation.navigate("Main");
         }else{
+            Alert.alert('No se pudo iniciar sesión.')
             console.log("Error al iniciar sesion")
         }
 

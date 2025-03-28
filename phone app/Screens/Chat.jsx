@@ -1,4 +1,5 @@
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { DrawerActions, useNavigation } from "@react-navigation/native";
 import { StyleSheet, View, Image, Pressable, ScrollView, TouchableOpacity, TextInput, Text  } from "react-native";
 import { useEffect, useState } from 'react';
@@ -27,7 +28,7 @@ const Chat = () => {
   
   const getMesssages  = async () =>{
     try {
-      const res = await axios.post("http://172.16.32.77:4010/msg/getMsg", { rutaID:await AsyncStorage.getItem("ruta") })
+      const res = await axios.post("http://172.16.32.57:4010/msg/getMsg", { rutaID:await AsyncStorage.getItem("ruta") })
       const msg = res.data.mensajesDeLaRuta
      
       setMessage([...msg])
@@ -39,7 +40,7 @@ const Chat = () => {
 
   const getRoute = async ()=>{
     try {
-      const res = await axios.post("http://172.16.32.77:/ruta/getOne", { rutaID:await AsyncStorage.getItem("ruta") })
+      const res = await axios.post("http://172.16.32.57:4010/ruta/getOne", { rutaID:await AsyncStorage.getItem("ruta") })
       const route = res.data.RutaEncontrarda
       setRoute(route)
       console.log(res)
@@ -57,7 +58,7 @@ const Chat = () => {
         fecha: getDate()
       }
       try {
-       await axios.post("http://172.16.32.77:4010/msg/create", data)
+       await axios.post("http://172.16.32.57:4010/msg/create", data)
        getMesssages()
       } catch (error) {
         console.log("Ocurrio un error enviar mensaje:", error)
@@ -108,13 +109,13 @@ const Chat = () => {
                 <TouchableOpacity
                 key={m._id}
                 onPress={() => navigation.navigate('ChatProfil', { user: m })}> 
-                <Text style={styles.Date}>{m.fecha} </Text>
                   <Text style={styles.MessageContainer}>
-                    <Text style={styles.Name}>{m.conductor.name}</Text>
+                    <Text style={styles.Name}>{m.conductor.name} </Text>
                     <Text style={styles.Camion}>(Una ruta delante): </Text>
                     <Text style={styles.Text}>{m.texto} </Text>
                   
                   </Text>
+                <Text style={styles.Date}>{m.fecha} </Text>
                 </TouchableOpacity>
                   ))
                 }
@@ -123,7 +124,8 @@ const Chat = () => {
               <View style={styles.inputContainer}>
                 <TextInput value={text} onChangeText={(text) => setText(text)} style={styles.Input} placeholder='Escribir Mensaje'></TextInput>
                 <TouchableOpacity style={styles.SendButton} onPress={sendmessage}>
-                  <Text>Enviar</Text>
+                  <Text style={styles.SendButton.text} >Enviar</Text>
+                  <Ionicons name="send-sharp" size={16} color="white" />
                 </TouchableOpacity>
               </View>
 
@@ -166,6 +168,7 @@ const styles = StyleSheet.create({
       flexDirection: "row",
       padding: 10
     },
+    
     Title:{
       color: "#01e5fd",
       fontSize: 30,
@@ -181,17 +184,18 @@ const styles = StyleSheet.create({
     },
   
     ChatContainer:{
-      borderRadius: 10,
+      borderRadius: 0,
       backgroundColor: "#252569",
       padding: 10,
       marginBottom: 10
     },
+
     MessageContainer:{
-      fontSize: 20,
-      padding: 7,
+      fontSize: 18,
+      padding: 15,
       marginVertical: 5,
       borderWidth: 1,
-      backgroundColor: "#252599",
+      backgroundColor: "#fff",
       borderTopLeftRadius: 0,
       borderBottomLeftRadius: 0,
       borderTopRightRadius: 20,
@@ -199,18 +203,20 @@ const styles = StyleSheet.create({
       alignSelf: "flex-start",
     },
     Name:{
-      color: "#ca2193"
+      color: "#000",
+      fontWeight: 500,
     },
     Camion:{
       color: "#e55a14"
     },
     Text: {
-      color: "white",
+      color: "black",
     },
     Date: {
-      fontSize: 10, 
-      color: '#888', 
+      fontSize: 12, 
+      color: '#ddd', 
       paddingLeft: 20,
+      marginBottom: 7,
   
     },
     Admin:{
@@ -221,7 +227,7 @@ const styles = StyleSheet.create({
       flexDirection: "row",
       justifyContent: "space-between",
       backgroundColor: "white",
-      borderRadius:50,
+      borderRadius:0,
       padding: 5,
       marginBottom: 2
     },
@@ -232,13 +238,19 @@ const styles = StyleSheet.create({
       fontSize: 15
     },
     SendButton:{
-      borderRadius: 100,
-      borderWidth: 1,
-      backgroundColor: "white",
-      padding: 2,
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      backgroundColor: "#0dc8e2",
+      padding: 5,
       justifyContent: "center",
       alignItems: "center",
-      width: "20%"
+      width: "23%",
+
+      text : {
+        color: 'white',
+        paddingRight: 5,
+        fontSize: 16
+      }
     },
   });
 

@@ -50,12 +50,13 @@ const aceptarSolicitud= async(datos)=>{
 
 try {
     //Crear historiar
- //const crearHistorial= await axios.post("http://localhost:4010/historial/register", datosAMandar)
+ const crearHistorial= await axios.post("http://localhost:4010/historial/register", datosAHistorial)
 
  //BajarPuntos
-  //const modificarPuntos= await axios.put("http://localhost:4010/conductor/puntos", datosAPuntos)
+const modificarPuntos= await axios.put("http://localhost:4010/conductor/puntos", datosAPuntos)
  //BorrarSolicitud
- //const solicitudEliminada= await axios.delete("http://localhost:4010/solicitud/delete",{data:{solicitudID:datos._id}})
+const solicitudEliminada= await axios.delete("http://localhost:4010/solicitud/delete",{data:{solicitudID:datos._id}})
+alert("Canjeo correcto")
 } catch (error) {
   console.log("Hubo un error: ", error)
 }
@@ -66,11 +67,23 @@ const denegarSolicitud= async(datos)=>{
   console.log("Recibo: ", datos)
   datos.estado=false
   console.log("Y despues de procesar es: ",datos)
+
+  const datosAHistorial={
+    conductor:datos.conductor._id,
+    recompensa:datos.recompensa._id,
+   estado: datos.estado,
+    fecha:datos.fecha
+  }
+
+  console.log("Hola, soy datos a HISTORIAL: ", datosAHistorial)
+
   try {
   //Crear historiar
-  //const crearHistorial= await axios.post("http://localhost:4010/historial/register", datos)
+  const crearHistorial= await axios.post("http://localhost:4010/historial/register", datosAHistorial)
    //BorrarSolicitud
- //const solicitudEliminada= await axios.delete("http://localhost:4010/solicitud/delete",{data:{solicitudID:datos._id}})
+  const solicitudEliminada= await axios.delete("http://localhost:4010/solicitud/delete",{data:{solicitudID:datos._id}})
+
+  alert("Se ha eliminado con exito")
   } catch (error) {
     console.log("Hubo un error", error)
   }

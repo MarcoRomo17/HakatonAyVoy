@@ -116,7 +116,7 @@ export const Rutas = () => {
 
 
       <Form.Select className="mb-3" aria-label="Default select example"onChange={(e)=>setValue('ruta', e.target.value)}>
-      <option>Selecciona una ruta</option>
+      <option>--Selecciona una ruta--</option>
       {
                                         Rutas.map((ruta)=>(
                                           <option value={ruta._id}>{ruta.numeroRuta}</option>
@@ -131,14 +131,14 @@ export const Rutas = () => {
     <Container className="text-white" style={{ backgroundColor: '#0b1d5f', alignContent: 'center', height: '300px', overflowY: 'auto', width:"50%"}}>
         <h3 className="text-center text-white mb-4">Chat de la ruta: {route.numeroRuta}</h3>
         <Container className="text-white" style={{ backgroundColor: '#0b1d5f', alignContent: 'center' }}>
-          <Container style={{ margin: '5px', display: 'flex', flexDirection: 'column', backgroundColor: 'white', width: '100%', height: '100%' }}>
+          <Container style={{ margin: '5px', display: 'flex', flexDirection: 'column', backgroundColor: "#0b1d5f", width: '100%', height: '100%' }}>
             
             {
               MSGFiltrados.map((msg)=>(
-                  <Card style={{width:"fit-content", height:"fit-content", fontSize:"10px"}} className="m-1">
+                  <Card style={{width:"65%", height:"fit-content", fontSize:"10px", borderRadius:"10px"}} className="m-1">
                     <Card.Body>
-                      <Card.Title style={{fontSize:"15px"}}>{msg.texto}</Card.Title>
-                      <Card.Text>{msg.conductor.name} {msg.fecha}</Card.Text>
+                      <Card.Title style={{fontSize:"18px"}}>{msg.texto}</Card.Title>
+                      <Card.Text style={{color:"#e55a14  "}}>{msg.conductor.name} {msg.fecha}</Card.Text>
                     </Card.Body>
                   </Card>)
 
@@ -155,9 +155,9 @@ export const Rutas = () => {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Escribir Mensaje"
-          className="form-control me-2"
+          className="form-control me-2 mb-3"
         />
-        <button  className="btn btn-warning">Enviar</button>
+        <button  className="btn btn-warning mb-3">Enviar</button>
       </Container>
       </Container>
 

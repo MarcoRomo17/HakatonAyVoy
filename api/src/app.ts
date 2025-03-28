@@ -43,7 +43,7 @@ app.put("/conductor/ruta", cambiarRuta)
 
 //MENSAJES
 app.post("/msg/create",registrarMensaje)
-app.get("/msg/getMsg",mostarMensajesPorRuta)
+app.post("/msg/getMsg",mostarMensajesPorRuta)
 app.get("/msg/getAll", todosLosMensajes)
 
 //SOLICITUDES

@@ -161,7 +161,7 @@ const actualizarRuta=async(objAnterior)=>{
 
       <Modal show={ShowModal} onHide={handleClose} backdrop="static" keyboard={false}>
                         <Modal.Header>
-                            <Modal.Title>Edita tu tarea...</Modal.Title>
+                            <Modal.Title>Edita la ruta</Modal.Title>
                         </Modal.Header>
 
                         <Modal.Body>

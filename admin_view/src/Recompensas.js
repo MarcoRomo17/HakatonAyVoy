@@ -1,12 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Container, Nav, Card, Navbar, Button, Table, Form } from "react-bootstrap";
+import { Container, Nav, Card, Navbar, Button, Table, Form, Modal } from "react-bootstrap";
 
 export const Recompensa = () => {
   useEffect(()=>{
     obtenerRecompensas()
   },[])
   const [Recompensas, setRecompensas] = useState([]);
+  const [FORMM, setFORMM] = useState({});
+  const [ShowModal, setShowModal] = useState(false);
+  const [RecompensaUpdate, setRecompensaUpdate] = useState({});
+  const [VarAEditar, setVarAEditar] = useState({});
+
+
 
   const obtenerRecompensas= async()=>{
     try {
@@ -18,6 +24,80 @@ export const Recompensa = () => {
       console.log("Ocurrio un error:", error)
     }
   }
+  const setValue=(field, value)=>{
+
+    setFORMM({
+        ...FORMM,
+        [field]:value
+    })
+    console.log("estoy escribiendo en ", field, "el valor de ", value)
+
+  
+  }
+
+  const registrarRecompensa=async()=>{
+    try {
+      const datosAmandar ={
+        concepto:FORMM.concepto,
+        puntos: parseInt(FORMM.puntos)
+      }
+      console.log("Mandare ", datosAmandar)
+      const recompensa = await axios.post("http://localhost:4010/recompensas/create", datosAmandar)
+      alert("Recompensa registrada")
+    } catch (error) {
+      console.log("Hubo un error: ", error)
+    }
+  }
+  const handleClose=()=> setShowModal(false)
+  const handleShow=(recompensaToUpdate)=>{
+        
+    setShowModal(true)
+    console.log("recibo ",recompensaToUpdate)
+    setRecompensaUpdate(recompensaToUpdate)
+  }
+  const setValue2=(field, value)=>{
+    
+    setVarAEditar({
+        ...VarAEditar,
+        [field]:value
+    })
+    console.log("Estoy escribiendo ",value," en el campo ", field)
+  
+  }
+
+  const darDeBajaRecompensa= async(ID)=>{
+    console.log('Jola, recibo:', ID)
+ 
+    try {
+    const conductorEliminado= await axios.delete("http://localhost:4010/recompensas/delete",{data:{recompensaID:ID}})
+    //Por alguna razon, los delete solo mandan bien la informacion si es como la tengo en la linea de arriba
+     alert("Recompensa eliminada con exito")
+    } catch (error) {
+     console.log("hubo un error", error)
+    }
+ }
+ const actualizarRecompensa=async(objAnterior)=>{
+  try {
+    console.log("Hola, soy objAterior",objAnterior)
+    console.log("Hola, soy VarAEditar",VarAEditar)
+
+    const objetoActualizadp={
+      recompensaID:objAnterior._id,
+      concepto: VarAEditar.concepto,
+      puntos: VarAEditar.puntos
+    }
+
+    console.log("Por lo tanto envio ", objetoActualizadp)
+
+    const recompensaActualizada = await axios.put("http://localhost:4010/recompensas/update", objetoActualizadp)
+    //console.log("Esta madre me regreso",tareaYAactualizada.data.TareaActualizada)
+    setShowModal(false)
+    alert("Actualizada correctamente")
+  } catch (error) {
+      console.log("Algo salio mal", error)
+  }
+}
+
 
   return (
     <Container fluid style={{ backgroundColor: "#252569", minHeight: "100vh", padding: "20px" }}>
@@ -66,12 +146,12 @@ export const Recompensa = () => {
             </tr>
           </thead>
           <tbody>
-            {Recompensas.map((chofer) => (
-              <tr key={chofer.id} className="text-center">
-                <td>{chofer.concepto}</td>
-                <td>{chofer.puntos}</td>
-                <td><Button variant="warning" className="me-3">Actualizar ruta</Button>
-                <Button variant="danger" >Dar de baja</Button></td>
+            {Recompensas.map((prize) => (
+              <tr key={prize.id} className="text-center">
+                <td>{prize.concepto}</td>
+                <td>{prize.puntos}</td>
+                <td><Button variant="warning" className="me-3" onClick={()=>handleShow(prize)}>Actualizar ruta</Button>
+                <Button variant="danger" onClick={()=>darDeBajaRecompensa(prize._id)} >Dar de baja</Button></td>
               </tr>
             ))}
           </tbody>
@@ -81,10 +161,12 @@ export const Recompensa = () => {
       <Container style={{width:"50%", border:"5px solid #ca2193 ", backgroundColor:"#252569 "}}>    
         <Card.Title className="mb-3 mt-3" style={{color:"white"}}>Crear nueva recompensa</Card.Title>
         <Form>
-          <Form.Control className="mb-3" placeholder="Concepto"/>
-          <Form.Control className="mb-3" placeholder="Puntos"/>
+          <Form.Control className="mb-3" onChange={(e)=>setValue('concepto', e.target.value)}
+  placeholder="Concepto"/>
+          <Form.Control className="mb-3" type="number"onChange={(e)=>setValue('puntos', e.target.value)}
+ placeholder="Puntos"/>
         </Form>
-        <Button className="mb-3" style={{backgroundColor:"#ca2193 "}}>Registrar recompensa</Button>
+        <Button className="mb-3" style={{backgroundColor:"#ca2193 "}} onClick={()=>registrarRecompensa()}>Registrar recompensa</Button>
       </Container>
 
 
@@ -92,6 +174,29 @@ export const Recompensa = () => {
         {/*Aqui hice solo un mapeo con 4 numero pero con este vamos a usar los registros*/}
         
       </Container>
+      <Modal show={ShowModal} onHide={handleClose} backdrop="static" keyboard={false}>
+                        <Modal.Header>
+                            <Modal.Title>Edita la recompensa...</Modal.Title>
+                        </Modal.Header>
+
+                        <Modal.Body>
+                            <Form>
+                                <Form>
+                                  <Form.Control className="mb-3"  placeholder={RecompensaUpdate.concepto} onChange={(e)=>setValue2('concepto', e.target.value)}
+                                  />
+                                  <Form.Control className="mb-3" placeholder={RecompensaUpdate.puntos} type="number"onChange={(e)=>setValue2('puntos', e.target.value)}
+                                  />
+                                  </Form>
+                            </Form>
+
+                        </Modal.Body>
+
+                        <Modal.Footer>
+                        <Button onClick={()=>handleClose()}>Cerrar</Button>
+                        <Button onClick={()=>actualizarRecompensa(RecompensaUpdate)}>Actualizar</Button>
+
+                        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };

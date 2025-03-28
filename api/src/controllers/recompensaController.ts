@@ -7,6 +7,7 @@ import { recompensaModel } from "../models/RecompensaModel";
 export const registrarRecompensa= async (req:Request, res: Response): Promise<any>=>{
     try {
         const {concepto,puntos}=req.body;
+        console.log(`Recibo ${concepto} y ${puntos}`)
 
         //Validar que venga todo:
         if(!concepto||

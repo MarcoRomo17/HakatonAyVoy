@@ -37,7 +37,7 @@ export const Rutas = () => {
 
     console.log("recibo de ruta: ", field, value)
 
-    const mensajesFiltrados = AllMSG.filter((msg)=>msg.ruta == value)
+    const mensajesFiltrados = AllMSG.filter((msg)=>msg.ruta === value)
     console.log("mensajes de la ruta : ", value)
     console.log(mensajesFiltrados)
     setMSGFiltrados(mensajesFiltrados)
@@ -135,10 +135,10 @@ export const Rutas = () => {
             
             {
               MSGFiltrados.map((msg)=>(
-                  <Card>
+                  <Card style={{width:"fit-content", height:"fit-content", fontSize:"10px"}} className="m-1">
                     <Card.Body>
-                      <Card.Title>{msg.texto}</Card.Title>
-                      <Card.Text>{msg.conductor}</Card.Text>
+                      <Card.Title style={{fontSize:"15px"}}>{msg.texto}</Card.Title>
+                      <Card.Text>{msg.conductor.name} {msg.fecha}</Card.Text>
                     </Card.Body>
                   </Card>)
 

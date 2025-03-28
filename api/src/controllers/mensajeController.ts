@@ -62,7 +62,7 @@ export const todosLosMensajes= async (req:Request, res: Response): Promise<any>=
     try {
  
 
-        const mensajesDeLaRuta= await mensajeModel.find()
+        const mensajesDeLaRuta= await mensajeModel.find().populate("conductor")
 
         return res.status(200).json({msg:"mensaje enviado con exito.",mensajesDeLaRuta})
 
@@ -74,4 +74,3 @@ export const todosLosMensajes= async (req:Request, res: Response): Promise<any>=
     }
 }
 
-    

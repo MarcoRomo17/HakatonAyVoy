@@ -9,6 +9,7 @@ export interface IConductor {
     password: string;
     ruta:Schema.Types.ObjectId | string;//decimos que es de tipo object ID o de string se suppone es para saber cual tiene en turno
     puntos:number;
+    esAdmin:Boolean;
 }
 export interface IRuta{
     numeroRuta: string;

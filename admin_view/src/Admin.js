@@ -115,7 +115,7 @@ const actualizarRuta=async(objAnterior)=>{
           <Nav.Link href="/Autorizacion" style={{ color: "#252569", fontWeight: "bold" }}>Autorizacion de canjeos</Nav.Link>
           <Nav.Link href="/Historial" style={{ color: "#252569", fontWeight: "bold" }}>Historial de canjeos</Nav.Link>
           <Nav.Link href="/Registrar" style={{ color: "#252569", fontWeight: "bold" }}>Crear cuenta de chofer</Nav.Link>
-          <Nav.Link href="/RegistrarRuta" style={{ color: "#252569", fontWeight: "bold" }}>Craer nueva ruta</Nav.Link>
+          <Nav.Link href="/Recompensa" style={{ color: "#252569", fontWeight: "bold" }}>Registrar recompensa</Nav.Link>
           <Nav.Link href="/AdminPuntos" style={{ color: "#252569", fontWeight: "bold" }}>Transferir</Nav.Link>
 
         </Nav>
@@ -135,7 +135,7 @@ const actualizarRuta=async(objAnterior)=>{
         <Table striped bordered hover responsive className="text-white" style={{ backgroundColor: "#0b1d5f" }}>
           <thead>
             <tr className="text-center" style={{ backgroundColor: "#ca2193", color: "#fff" }}>
-              <th>ID</th>
+              
               <th>Nombre</th>
               <th>Apellido/s</th>
               <th>Puntos</th>
@@ -146,7 +146,7 @@ const actualizarRuta=async(objAnterior)=>{
           <tbody>
             {Choferes.map((chofer) => (
               <tr key={chofer.id} className="text-center">
-                <td style={{ fontWeight: "bold", color: "#ffc107" }}>{chofer.id}</td>
+               
                 <td>{chofer.name}</td>
                 <td>{chofer.ap}</td>
                 <td>{chofer.puntos}</td>

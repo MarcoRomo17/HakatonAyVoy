@@ -103,7 +103,7 @@ const denegarSolicitud= async(datos)=>{
           <Nav.Link href="/Autorizacion" style={{ color: "#ca2193", fontWeight: "bold" }}>Autorizacion de canjeos</Nav.Link>
           <Nav.Link href="/Historial" style={{ color: "#252569", fontWeight: "bold" }}>Historial de canjeos</Nav.Link>
           <Nav.Link href="/Registrar" style={{ color: "#252569", fontWeight: "bold" }}>Crear cuenta de chofer</Nav.Link>
-          <Nav.Link href="/RegistrarRuta" style={{ color: "#252569", fontWeight: "bold" }}>Craer nueva ruta</Nav.Link>
+          <Nav.Link href="/Recompensa" style={{ color: "#252569", fontWeight: "bold" }}>Registrar recompensa</Nav.Link>
           <Nav.Link href="/AdminPuntos" style={{ color: "#252569", fontWeight: "bold" }}>Transferir</Nav.Link>
 
         </Nav>
@@ -134,8 +134,8 @@ const denegarSolicitud= async(datos)=>{
             {Solicitudes.map((chofer) => (
               <tr key={chofer._id} className="text-center">
                 <td style={{ fontWeight: "bold", color: "#ffc107" }}>{chofer.id}</td>
-                <td>{chofer.conductor.name}</td>
-                <td>{chofer.conductor.ap} {chofer.conductor.am}</td>
+                <td>{chofer.conductor ? chofer.conductor.name : "Conductor borrado"}</td>
+                <td>{chofer.conductor ? chofer.conductor.ap : "N /"} { chofer.conductor ? chofer.conductor.am : " A"}</td>
                 <td>{chofer.recompensa.concepto}</td>
                 <td><Button variant="success" className="me-3" onClick={()=>aceptarSolicitud(chofer)}>Autorizar</Button>
                 <Button variant="danger" onClick={()=>denegarSolicitud(chofer)}>Denegar</Button></td>

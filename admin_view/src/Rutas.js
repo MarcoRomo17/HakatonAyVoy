@@ -102,7 +102,7 @@ export const Rutas = () => {
           <Nav.Link href="/Autorizacion" style={{ color: "#252569", fontWeight: "bold" }}>Autorizacion de canjeos</Nav.Link>
           <Nav.Link href="/Historial" style={{ color: "#252569", fontWeight: "bold" }}>Historial de canjeos</Nav.Link>
           <Nav.Link href="/Registrar" style={{ color: "#252569", fontWeight: "bold" }}>Crear cuenta de chofer</Nav.Link>
-          <Nav.Link href="/RegistrarRuta" style={{ color: "#252569", fontWeight: "bold" }}>Craer nueva ruta</Nav.Link>
+          <Nav.Link href="/Recompensa" style={{ color: "#252569", fontWeight: "bold" }}>Registrar recompensa</Nav.Link>
           <Nav.Link href="/AdminPuntos" style={{ color: "#252569", fontWeight: "bold" }}>Transferir</Nav.Link>
 
         </Nav>
@@ -142,7 +142,7 @@ export const Rutas = () => {
                   <Card style={{width:"65%", height:"fit-content", fontSize:"10px", borderRadius:"10px"}} className="m-1">
                     <Card.Body>
                       <Card.Title style={{fontSize:"18px"}}>{msg.texto}</Card.Title>
-                      <Card.Text style={{color:"#e55a14  "}}>{msg.conductor.name} {msg.fecha}</Card.Text>
+                      <Card.Text style={{color:"#e55a14  "}}>{msg.conductor ? msg.conductor.name : "Conductor borrado"} {msg.fecha}</Card.Text>
                     </Card.Body>
                   </Card>)
 

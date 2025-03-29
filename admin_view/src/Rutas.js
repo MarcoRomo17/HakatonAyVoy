@@ -142,7 +142,7 @@ export const Rutas = () => {
                   <Card style={{width:"65%", height:"fit-content", fontSize:"10px", borderRadius:"10px"}} className="m-1">
                     <Card.Body>
                       <Card.Title style={{fontSize:"18px"}}>{msg.texto}</Card.Title>
-                      <Card.Text style={{color:"#e55a14  "}}>{msg.conductor.name} {msg.fecha}</Card.Text>
+                      <Card.Text style={{color:"#e55a14  "}}>{msg.conductor ? msg.conductor.name : "Conductor borrado"} {msg.fecha}</Card.Text>
                     </Card.Body>
                   </Card>)
 

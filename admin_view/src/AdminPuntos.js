@@ -105,9 +105,9 @@ const transferirPuntos= async(datos)=>{
                 <td style={{display:"flex"}}>
                     <Form.Select  onChange={recogerPuntos}>
                     <option >--Seleccionar cantidad--</option>
-                    <option value={20}>20 puntos("Puntualidad")</option>
+                    <option value={20}>20 puntos("Cuidado de espacio de trabajo")</option>
                     <option value={50}>50 puntos("Conducta")</option>
-                    <option value={100}>100 puntos("Cuidado de espacio de trabajo")</option>
+                    <option value={100}>100 puntos("Puntualidad")</option>
                     </Form.Select>
 
                     <Button variant="success" onClick={()=>transferirPuntos(chofer)}>Transferir</Button>

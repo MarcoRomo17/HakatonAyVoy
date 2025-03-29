@@ -114,8 +114,8 @@ export const Rutas = () => {
         </Card.Text>
       </Card>
 
-
-      <Form.Select className="mb-3" aria-label="Default select example"onChange={(e)=>setValue('ruta', e.target.value)}>
+<Container style={{display:"flex"}}>
+<Form.Select className="mb-3 me-3" aria-label="Default select example" style={{width:"50%", height:"40px"}} onChange={(e)=>setValue('ruta', e.target.value)}>
       <option>--Selecciona una ruta--</option>
       {
                                         Rutas.map((ruta)=>(
@@ -123,6 +123,10 @@ export const Rutas = () => {
                                         ))
                                       }
     </Form.Select>
+
+    <Button variant="success" href="/RegistrarRuta" style={{width:"50%", height:"40px"}}>Crear nueva ruta</Button>
+</Container>
+     
 
     <Container style={{display:"flex"}}>
 

@@ -8,6 +8,8 @@ import Schedule from "../Screens/Schedule";
 import MapRoutes from "../Screens/MapRoutes";
 import Profile from "../Screens/Profile";
 import Support from "../Screens/Support";
+import Survey from "../Screens/Survey";
+
 
 const { createDrawerNavigator } = require("@react-navigation/drawer");
 
@@ -32,7 +34,7 @@ export const DrawerNavigator = () => {
                     drawerLabel: "Inicio",
                     headerShown: false,
                     drawerIcon: () => (
-                        <FontAwesome name="home" size={25} color="#d4c6ff" />
+                        <FontAwesome5 name="home" size={20} color="#d4c6ff" />
                     ),
                 }}
             />
@@ -124,6 +126,11 @@ export const DrawerNavigator = () => {
                     ),
                 }}
             />
+
+            <Drawer.Screen name='Survey' component={Survey}  options={{
+                drawerLabel: "Encuesta de Satisfacción",
+                headerShown: false
+            }}/>
         </Drawer.Navigator>
     );
 };

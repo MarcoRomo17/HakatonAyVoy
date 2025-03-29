@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Modal from 'react-native-modal';
+import * as Location from 'expo-location';
 
 
 const Chat = () => {
@@ -16,6 +17,35 @@ const Chat = () => {
   };
 
   const navigation = useNavigation();
+  
+
+  const getLocation = async () => {
+    try {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        throw new Error('Permiso de ubicación denegado');
+      }
+  
+      let location = await Location.getCurrentPositionAsync({});
+      return {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      };
+    } catch (error) {
+      console.error("Error al obtener ubicación:", error);
+      return null;
+    }
+  };
+  const fetchLocation = async () => {
+    const coords = await getCoordinates();
+    if (coords) {
+      console.log("Ubicación:", coords.latitude, coords.longitude);
+    }
+  };
+  
+  fetchLocation();
+  
+  
 
   const [route, setRoute] = useState({})
 
@@ -29,6 +59,7 @@ const Chat = () => {
   useEffect(()=>{
     getMesssages()
     getRoute()
+    getLocation()
 
     const interval = setInterval(() => {
       getMesssages(); 
@@ -52,7 +83,7 @@ const Chat = () => {
 
   const getRoute = async ()=>{
     try {
-      const res = await axios.get("/ruta/getOne", { rutaID:await AsyncStorage.getItem("ruta") })
+      const res = await axios.post("/ruta/getOne", { rutaID:await AsyncStorage.getItem("ruta") })
       const route = res.data.RutaEncontrarda
       setRoute(route)
       console.log(res)
@@ -72,10 +103,15 @@ const Chat = () => {
         fecha: getDate()
       }
       try {
+        setModalVisible(false)
+        const coords = await getLocation();
+        console.log("coordenas:", coords.latitude, coords.longitude);
+
+        data.coordenadas = coords
+
        await axios.post("/msg/create", data)
        getMesssages()
 
-       setModalVisible(false)
        setText("")
         
       } catch (error) {

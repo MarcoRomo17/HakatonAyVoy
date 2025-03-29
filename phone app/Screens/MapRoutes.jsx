@@ -2,19 +2,47 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
 import { StyleSheet, View, Image, Pressable, Text } from "react-native";
 import { useEffect, useState } from "react";
-import MapView, { Polyline } from "react-native-maps";
+import MapView, { Polyline, Marker } from "react-native-maps";
 import SelectDropdown from "react-native-select-dropdown";
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const MapRoutes = () => {
     const navigation = useNavigation();
+
+    const [message, setMessage] = useState([])
 
     const [route, setRoute] = useState([]);
     const [selectedRoute, setSelectedRoute] = useState("");
 
     useEffect(() => {
         getRoutes();
+        getMesssages();
+
+        const interval = setInterval(() => {
+            getMesssages(); 
+          }, 1000); 
+        
+          return () => clearInterval(interval);
     }, []);
+
+    const getMesssages  = async () =>{
+        try {
+          const res = await axios.post("/msg/getMsg", { rutaID:await AsyncStorage.getItem("ruta") })
+          const msg = res.data.mensajesDeLaRuta
+
+             // Filtrado de mensajes que tienen coordenadas
+             const messagesWithCoords = msg.filter(msg => 
+                msg.coordenadas && 
+                msg.coordenadas.latitude && 
+                msg.coordenadas.longitude
+        );
+         
+          setMessage([...messagesWithCoords])
+        } catch (error) {
+          console.log("Ocurrio un error al obtener mensajes:", error)
+        }
+      }
 
     const getRoutes = async () => {
         try {
@@ -30,15 +58,16 @@ const MapRoutes = () => {
             }));
 
             setRoute(routesWithoutId);
+          
         } catch (error) {
             console.log("Ocurrio un error enviar mensaje:", error);
         }
     };
 
     const selectRoutes = [
-        { title: "Ruta 24" },
-        { title: "Ruta 37" },
-        { title: "Ruta 50" },
+        { title: "24" },
+        { title: "37" },
+        { title: "50" },
     ];
     return (
         <View style={styles.container}>
@@ -118,6 +147,20 @@ const MapRoutes = () => {
                             />
                         ) : null
                     )}
+                    {
+                        message.map((c, i)=>(
+                            <Marker
+                            key={i}
+                            coordinate={{
+                                latitude: c.coordenadas.latitude,
+                                longitude: c.coordenadas.longitude,
+                            }}
+                            title={`Mensaje: ${c.texto}`}
+                        />
+                        ))
+                    }
+
+
                 </MapView>
             </View>
         </View>
@@ -211,4 +254,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default MapRoutes;
+export default MapRoutes;

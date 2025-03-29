@@ -20,6 +20,10 @@ const mensajeEsquema= new Schema<IMensaje>({
         type:String,
         required:true
     },
+    coordenadas: { 
+        latitude: { type: Number, required: false },
+        longitude: { type: Number, required: false }
+    }
 })
 
 export const mensajeModel= model("MENSAJE", mensajeEsquema)

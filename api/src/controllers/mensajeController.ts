@@ -6,7 +6,8 @@ export const registrarMensaje= async (req:Request, res: Response): Promise<any>=
         const {texto,
             ruta,
             conductor,
-            fecha}=req.body;
+            fecha,
+            coordenadas}=req.body;
 
         //Validar que venga todo:
         if(!texto||
@@ -22,7 +23,8 @@ export const registrarMensaje= async (req:Request, res: Response): Promise<any>=
             texto,
             ruta,
             conductor,
-            fecha
+            fecha,
+            coordenadas
         })
 
         return res.status(200).json({msg:"mensaje enviado con exito.",mensajeData})

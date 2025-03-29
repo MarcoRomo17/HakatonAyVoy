@@ -26,6 +26,7 @@ export interface IMensaje{
     ruta: Schema.Types.ObjectId | string;//decimos que es de tipo object ID o de string
     conductor: Schema.Types.ObjectId | string;//decimos que es de tipo object ID o de string
     fecha: Date | string;
+    coordenadas: ICoordenada;
 }
 
 //Para solicitudes y recompensas
@@ -42,4 +43,11 @@ export interface ISoliHis{
 export interface IRecompensa{
         concepto: String;
         puntos: number;
+}
+
+
+export interface IHorario {
+    conductor: Schema.Types.ObjectId | string;
+    ruta: String;
+    horario: String;
 }

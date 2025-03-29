@@ -1,23 +1,37 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const Historial = () => {
-  const BusRewardHistorial = [
-    {
-      reward: 'Día Libre',
-      date: '19/02/2025',
-    },
-  ];
+
+  const [historial, setHistorial] = useState([])
+
+      useEffect(() => {
+          getAll();
+      }, []);
+
+  const getAll = async ()=>{
+    try {
+      const res = await axios.get("/historial/getAll")
+      const allRewards = res.data.todoHistorial
+      setHistorial(allRewards)
+    } catch (error) {
+      
+    }
+  }
 
   return (
     <ScrollView style={styles.container}>
-         {BusRewardHistorial.map(({reward, date}, index) => (
-           <View key={index} style={styles.rewardItem}>
-             <Text style={styles.rewardText}>Recompensa: {reward}</Text>
-             <Text style={styles.pointsText}>Fecha de canje: {date}
-             </Text>
-           </View>
-         ))}
+       {
+        historial.map(({ recompensa, fecha}, index) => (
+          <View key={index} style={styles.rewardItem}>
+            <Text style={styles.rewardText}>Recompensa: {recompensa.concepto}</Text>
+            <Text style={styles.pointsText}>Fecha de canje: {fecha}</Text>
+
+          </View>
+        ))
+      }
        </ScrollView>
   );
 };
@@ -48,4 +62,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Historial;
+export default Historial;

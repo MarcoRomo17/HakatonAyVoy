@@ -7,9 +7,11 @@ import {
     Alert,
     ScrollView,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Rewards = () => {
     const [rewards, setRewards] = useState([]);
+    const [reward, setReward] = useState("");
 
     useEffect(() => {
         getRewards();
@@ -26,6 +28,33 @@ const Rewards = () => {
         }
     };
 
+    const send = async () => {
+        try {
+            const data ={
+                recompensa: reward,
+                fecha: getDate(),
+                conductor: await AsyncStorage.getItem("_id"),
+            }
+            await axios.post("/solicitud/create", data)
+        } catch (error) {
+            console.log("Error al generar solicitud: ", error)
+        }
+    }
+
+
+    const getDate = () => {
+        const fecha = new Date();
+      
+        const año = fecha.getFullYear();
+        const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+        const día = String(fecha.getDate()).padStart(2, '0');
+        const horas = String(fecha.getHours()).padStart(2, '0');
+        const minutos = String(fecha.getMinutes()).padStart(2, '0');
+        const segundos = String(fecha.getSeconds()).padStart(2, '0');
+      
+        return `${año}-${mes}-${día} ${horas}:${minutos}:${segundos}`;
+      };
+
     const AdminAdvice = () => {
         console.log("AdminAdvice called");
         Alert.alert(
@@ -39,7 +68,7 @@ const Rewards = () => {
                 },
                 {
                     text: "Aceptar",
-                    onPress: () => console.log("Recompensa canjeada"),
+                    onPress: () => {console.log("Recompensa canjeada"); send()},
                 },
             ]
         );
@@ -47,15 +76,15 @@ const Rewards = () => {
 
     return (
         <ScrollView style={styles.container}>
-            {rewards.map(({ concepto, puntos }, index) => (
+            {rewards.map((recompensa, index) => (
                 <TouchableOpacity
                     key={index}
                     style={styles.rewardItem}
-                    onPress={AdminAdvice} // Llama a AdminAdvice solo cuando se presiona
+                    onPress={()=>{AdminAdvice(); setReward(recompensa._id); }} // Llama a AdminAdvice solo cuando se presiona
                 >
-                    <Text style={styles.rewardText}>Recompensa: {concepto}</Text>
+                    <Text style={styles.rewardText}>Recompensa: {recompensa.concepto}</Text>
                     <Text style={styles.pointsText}>
-                        Puntos Necesarios: {puntos}
+                        Puntos Necesarios: {recompensa.puntos}
                     </Text>
                 </TouchableOpacity>
             ))}
@@ -87,4 +116,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Rewards;
+export default Rewards;

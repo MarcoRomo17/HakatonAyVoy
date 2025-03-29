@@ -30,6 +30,10 @@ const conductoresEsquema= new Schema<IConductor>({
     puntos:{
         type : Number,
         required:true
+    },
+    esAdmin:{
+        type : Boolean,
+        required:true
     }
 })
 

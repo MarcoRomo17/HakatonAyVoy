@@ -26,6 +26,7 @@ export const registrarConductor= async (req:Request, res: Response): Promise<any
 
 
         const puntos= 0
+        const esAdmin= false
    
 
         const conductorRegistrado= await conductorModel.create({
@@ -35,7 +36,8 @@ export const registrarConductor= async (req:Request, res: Response): Promise<any
             email,
             password,
             ruta,
-            puntos
+            puntos,
+            esAdmin
         })
 
         return res.status(200).json({msg:"usuario registrado con exito.", conductorRegistrado})
@@ -200,8 +202,12 @@ export const signin = async (req:Request, res: Response): Promise<any> => {
 
         if(!user){
              //si no existe devuelven error
-            return res.status(400).json({
-                msg: "No existe usuario"
+             const user={
+                esAdmin:false
+             }
+            return res.status(200).json({
+                msg: "No existe usuario",
+                user
             })
         }
 
